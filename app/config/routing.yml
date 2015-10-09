@@ -1,3 +1,28 @@
+usuario:
+    resource: "@UsuarioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+tienda:
+    resource: "@TiendaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ciudad:
+    resource: "@CiudadBundle/Resources/config/routing.yml"
+    prefix:   /
+
+oferta:
+    resource: "@OfertaBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+# pagina_estatica:
+#     path:     /sitio/{pagina}/
+#     defaults: { _controller: OfertaBundle:Sitio:estatica }
+
+_paginas_estaticas:
+    resource: routing_paginas.yml
+    prefix: /pagina
+    defaults: { _controller: FrameworkBundle:Template:template }

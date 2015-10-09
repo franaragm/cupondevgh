@@ -1,0 +1,4 @@
+services:
+#    tienda.example:
+#        class: Cupon\TiendaBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
