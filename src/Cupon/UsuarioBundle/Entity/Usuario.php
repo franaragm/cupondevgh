@@ -3,6 +3,7 @@
 namespace Cupon\UsuarioBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Cupon\OfertaBundle\Util\Util;
 
 /**
  * Usuario
@@ -135,6 +136,7 @@ class Usuario
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
+        $this->slug = Util::getSlug($nombre);
 
         return $this;
     }
