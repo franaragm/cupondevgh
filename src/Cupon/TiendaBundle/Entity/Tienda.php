@@ -7,10 +7,11 @@ use Cupon\OfertaBundle\Util\Util;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="CuponDev_Tienda")
  */
 class Tienda
 {
-	/**
+    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue

@@ -29,10 +29,10 @@ class DefaultController extends Controller
         // 2015-10-30 13:00:00
         $date->setTime(13, 00);
 
-        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOneBy(array(
-        	'ciudad' => $ciudad,
-        	'fechaPublicacion' => $date
-        ));
+        $oferta = $em->getRepository('OfertaBundle:Oferta')
+            ->findOneBy(array(
+                'ciudad' => $ciudad,
+                'fechaPublicacion' => $date, ));
 
         // echo $date->format('Y-m-d H:i:s');
 
@@ -40,9 +40,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('No se ha encontrado ninguna oferta del día');
         }
 
-        return $this->render('OfertaBundle:Default:portada.html.twig',
-        	array('oferta' => $oferta)
-        );
+        return $this->render('OfertaBundle:Default:portada.html.twig', array('oferta' => $oferta));
 
     }
 }

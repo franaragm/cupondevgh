@@ -7,6 +7,7 @@ use Cupon\OfertaBundle\Util\Util;
 
 /**
  * @ORM\Entity
+ * @ORM\Table(name="CuponDev_Ciudad")
  */
 class Ciudad
 {

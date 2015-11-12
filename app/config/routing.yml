@@ -16,7 +16,7 @@ oferta:
 
 # Ruta completa de la portada (con el slug de la ciudad)
 portada:
-    path:  /{ciudad}
+    path:  /{ciudad}/
     defaults: { _controller: OfertaBundle:Default:portada, ciudad: %cupon.ciudad_por_defecto% }
 
 # Ruta simple de la portada con redireccion
