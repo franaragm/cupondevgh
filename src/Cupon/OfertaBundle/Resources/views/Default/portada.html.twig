@@ -1,89 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Portada | Cupon</title>
-</head>
-<body id="portada">
-	<div id="contenedor">
-		<header>
-			<h1> <a href="{{ path('portada') }}">CUPON</a> </h1>
-			<nav>
-			    <ul>
-			    	<li><a href="{{ path('portada') }}">Oferta del día</a></li>
-			    	<li><a href="#">Ofertas recientes</a></li>
-			    	<li><a href="#">Mis Ofertas</a></li>
-			    </ul>
-			</nav>
-		</header>
+{% extends '::frontend.html.twig' %}
 
-		<article class="oferta">
-			<section class="descripcion">
-				<h1> <a href="#">{{ oferta.nombre }}</a> </h1>
-				{{ oferta.descripcion }}
-				<a class="boton" href="#">Comprar</a>
-			</section>
+{% block title %}
+	Cupon, cada día ofertas increíbles en tu ciudad con descuentos de hasta el 90%
+{% endblock %}
 
-			<section class="galeria">
-				<img src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="Fotografía de la oferta">
-				<p class="precio">{{ oferta.precio }} &euro;
-					<span>{{ oferta.descuento }}</span></p>
-				<p><strong>Condiciones:</strong> {{ oferta.condiciones }} </p>
-			</section>
+{% block article %}
+    <section class="descripcion">
+        <h1> <a href="#">{{ oferta.nombre }}</a> </h1>
+        {{ oferta.descripcion }}
+        <a class="boton" href="#">Comprar</a>
+    </section>
 
-			<section class="estado">
-				<div class="tiempo">
-					<strong>Faltan</strong>: {{ oferta.fechaExpiracion | date() }}
-				</div>
+    <section class="galeria">
+        <img src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="Fotografía de la oferta">
+        <p class="precio">{{ oferta.precio }} &euro;
+            <span>{{ oferta.descuento }}</span></p>
+        <p><strong>Condiciones:</strong> {{ oferta.condiciones }} </p>
+    </section>
 
-				<div class="compras">
-					<strong>Compras</strong>: {{ oferta.compras }}
-				</div>
+    <section class="estado">
+        <div class="tiempo">
+            <strong>Faltan</strong>: {{ oferta.fechaExpiracion | date() }}
+        </div>
 
-				<div class="faltan">
-					{% set faltan = oferta.umbral - oferta.compras %}
-					{% if faltan > 0 %}
-						{# Si las compras no llegan al umbral mínimo establecido #}
-						Faltan <strong>{{ faltan }} compras</strong> <br> 
-						para activar la oferta
-					{% else %}
-						{# Si las compras superan el umbral mínimo establecido #}
-						<strong>Oferta activada</strong> por superar las 
-						<strong>{{ oferta.umbral }}</strong> compras necesarias
-					{% endif %}
-				</div>
-			</section>
+        <div class="compras">
+            <strong>Compras</strong>: {{ oferta.compras }}
+        </div>
 
-			<section class="direccion">
-				<h2>Disfruta de la oferta en</h2>
-				<p>
-					<a href="#">{{ oferta.tienda.nombre }}</a>
-					{{ oferta.tienda.direccion }}
-				</p>
-			</section>
+        <div class="faltan">
+            {% set faltan = oferta.umbral - oferta.compras %}
+            {% if faltan > 0 %}
+                {# Si las compras no llegan al umbral mínimo establecido #}
+                Faltan <strong>{{ faltan }} compras</strong> <br>
+                para activar la oferta
+            {% else %}
+                {# Si las compras superan el umbral mínimo establecido #}
+                <strong>Oferta activada</strong> por superar las
+                <strong>{{ oferta.umbral }}</strong> compras necesarias
+            {% endif %}
+        </div>
+    </section>
 
-			<section class="tienda">
-				<h2>Sobre la tienda</h2>
-				{{ oferta.tienda.descripcion }}
-			</section>
-		</article>
+    <section class="direccion">
+        <h2>Disfruta de la oferta en</h2>
+        <p>
+            <a href="#">{{ oferta.tienda.nombre }}</a>
+            {{ oferta.tienda.direccion }}
+        </p>
+    </section>
 
-		<aside>
-			## FORMULARIO DE LOGIN ##
+    <section class="tienda">
+        <h2>Sobre la tienda</h2>
+        {{ oferta.tienda.descripcion }}
+    </section>
+{% endblock %}
 
-			<section id="nosotros">
-				<h2>Sobre nosotros</h2>
-				<p>Lorem ipsum dolor sit amet...</p>
-			</section>
-		</aside>
+{% block aside %}
+    ## FORMULARIO DE LOGIN ##
 
-		<footer>
-			&copy; {{ 'now' | date('Y') }} - Cupon
-			<a href="{{ path('pagina_estatica', { 'pagina': 'ayuda'}) }}">Ayuda</a>
-        	<a href="{{ path('pagina_estatica', { 'pagina': 'privacidad'}) }}">Privacidad</a>
-        	<a href="{{ path('pagina_estatica', { 'pagina': 'sobre-nosotros'}) }}">Sobre nosotros</a>
-		</footer>
-
-	</div>
-</body>
-</html>
+    <section id="nosotros">
+        <h2>Sobre nosotros</h2>
+        <p>Lorem ipsum dolor sit amet...</p>
+    </section>
+{% endblock %}

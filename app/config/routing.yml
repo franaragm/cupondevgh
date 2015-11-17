@@ -14,15 +14,15 @@ oferta:
     resource: "@OfertaBundle/Resources/config/routing.yml"
     prefix:   /
 
-# Ruta completa de la portada (con el slug de la ciudad)
-portada:
-    path:  /{ciudad}/
-    defaults: { _controller: OfertaBundle:Default:portada, ciudad: %cupon.ciudad_por_defecto% }
-
 # Ruta simple de la portada con redireccion
 _portada:
     path:  /
     defaults: { _controller: FrameworkBundle:Redirect:redirect, route: portada, ciudad: '%cupon.ciudad_por_defecto%' }
+
+# Ruta completa de la portada (con el slug de la ciudad)
+portada:
+    path:  /{ciudad}/
+    defaults: { _controller: OfertaBundle:Default:portada, ciudad: %cupon.ciudad_por_defecto% }
 
 pagina_estatica:
     path:     /sitio/{pagina}/

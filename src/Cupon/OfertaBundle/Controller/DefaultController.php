@@ -14,27 +14,9 @@ class DefaultController extends Controller
      */
     public function portadaAction($ciudad)
     {
-        /*if (null == $ciudad) {
-            $ciudad = $this->container->getParameter('cupon.ciudad_por_defecto');
-
-            return new RedirectResponse(
-                $this->generateUrl('portada', array('ciudad' => $ciudad))
-            );
-        }*/
 
         $em = $this->getDoctrine()->getManager();
-
-        $date = new \DateTime();
-        $date->setDate(2015, 10, 30);
-        // 2015-10-30 13:00:00
-        $date->setTime(13, 00);
-
-        $oferta = $em->getRepository('OfertaBundle:Oferta')
-            ->findOneBy(array(
-                'ciudad' => $ciudad,
-                'fechaPublicacion' => $date, ));
-
-        // echo $date->format('Y-m-d H:i:s');
+        $oferta = $em->getRepository('OfertaBundle:Oferta')->findOfertaDelDia($ciudad);
 
         if (!$oferta) {
             throw $this->createNotFoundException('No se ha encontrado ninguna oferta del día');
