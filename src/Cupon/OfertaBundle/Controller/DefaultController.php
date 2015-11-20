@@ -4,6 +4,9 @@ namespace Cupon\OfertaBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Controlador por defecto
+ */
 class DefaultController extends Controller
 {
     /**
@@ -22,7 +25,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('No se ha encontrado ninguna oferta del día');
         }
 
-        return $this->render('OfertaBundle:Default:portada.html.twig', array('oferta' => $oferta));
+        return $this->render('::portada.html.twig', array('oferta' => $oferta));
 
     }
 }
