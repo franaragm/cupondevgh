@@ -1,0 +1,246 @@
+/*!
+ * Cupon-main.css custom styles for frontend webapp
+ */
+
+/* Global Styles */
+
+html,
+body {
+    height: 100%;
+}
+
+h2, h3, h4 {
+    color: #C06;
+}
+
+
+body {
+    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.img-portfolio {
+    margin-bottom: 30px;
+}
+
+.img-hover:hover {
+    opacity: 0.8;
+}
+
+/* ------ NAVBAR ------ */
+.navbar-inverse {
+    background-color: #00154E;
+    border-color: #080808;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+
+.navbar-brand {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.navbar-brand:hover,
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: #FF3385 !important;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.active>a:focus,
+.navbar-inverse .navbar-nav>.active>a:hover {
+    color: #00154E !important;
+    background-color: #FF3385 !important;
+}
+
+.dropdown-menu>.active>a,
+.dropdown-menu>.active>a:focus,
+.dropdown-menu>.active>a:hover {
+    color: #00154E !important;
+    background-color: #FF3385 !important;
+}
+
+.navbar-inverse .navbar-toggle,
+.navbar-inverse .navbar-toggle:focus,
+.navbar-inverse .navbar-toggle:hover {
+    background-color: #FF3385;
+}
+
+.navbar .selectcity {
+    display: inline-block;
+    padding: 15px;
+}
+
+.navbar-collapse {
+    padding-bottom: 10px;
+}
+
+.banner-cupon {
+    padding: 15px 15px;
+    background-color: #CCDAFF;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.banner-cupon p{
+    margin: 0px;
+    text-align: center;
+}
+
+.banner-cupon .btn{
+    font-size: 20px;
+    background-color: #00154E;
+}
+
+/* ------ Oferta Destacada del dia ------ */
+.descripcion h2 a {
+    color: #C06;
+}
+
+.img-oferta{
+    margin-top: 20px;
+    margin-bottom: -55px;
+}
+
+.img-oferta .precio {
+    background: rgba(0, 21, 78, 0.9);
+    color: #FFF;
+    display: inline-block;
+    font-size: 28px;
+    padding: .25em .5em;
+    position: relative;
+    top: -54px;
+    left: 0px;
+}
+
+.img-oferta .precio span {
+    color: #FF3385;
+    font-size: 21px;
+    font-weight: bold;
+    padding-left: .5em;
+    text-shadow: 0 1px 1px #00154E;
+}
+
+.datos-oferta {
+    font-size: 20px;
+    color: #00154E;
+}
+
+
+
+
+
+
+
+/* Home Page Carousel */
+header.carousel {
+    height: 50%;
+}
+
+header.carousel .item,
+header.carousel .item.active,
+header.carousel .carousel-inner {
+    height: 100%;
+}
+
+header.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+/* 404 Page Styles */
+.error-404 {
+    font-size: 100px;
+}
+
+/* Pricing Page Styles */
+.price {
+    display: block;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.price sup {
+    top: -20px;
+    left: 2px;
+    font-size: 20px;
+}
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+footer {
+    margin: 20px 0;
+}
+
+footer p, footer ul, footer section {
+    display: inline-block;
+}
+
+footer p {
+    margin-right: 20px;
+}
+
+footer #idioma {
+    float: right;
+}
+
+
+
+
+
+
+/* Responsive Styles */
+@media(max-width:991px) {
+    .customer-img,
+    .img-related {
+        margin-bottom: 30px;
+    }
+
+}
+
+@media(max-width:767px) {
+    .img-portfolio {
+        margin-bottom: 15px;
+    }
+
+    header.carousel .carousel {
+        height: 70%;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+        color: #fff;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
+        color: #FF3385;
+    }
+
+    .datos-oferta {
+        font-size: 15px;
+    }
+
+    .datos-oferta div.pull-left, .datos-oferta div.pull-right{
+        float: none !important;
+    }
+
+    .well {
+        padding: 15px;
+    }
+
+    footer {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    footer #idioma {
+        float: none;
+    }
+
+}
