@@ -1,0 +1,119 @@
+{% extends ':frontend:frontend.html.twig' %}
+
+{% block title %}
+    Cupon, cada día ofertas increíbles en tu ciudad con descuentos de hasta el 90%
+{% endblock %}
+
+{% block bannercupon %}
+<div class="container-fluid banner-cupon">
+    <div class="row ">
+        <div class="col-lg-12">
+            <p><a href="">CUPON</a> publica cada día una oferta increíble en tu ciudad con descuentos de hasta el 90%
+                <a class="btn btn-primary" href="#">Regístrate ya</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block maincontent %}
+<!-- Oferta destacada -->
+<div class="row">
+    <div class="col-md-6 descripcion">
+        <h2>
+            <a href="#">{{ oferta.nombre }}</a>
+        </h2>
+        <p>
+            {{ oferta.descripcion }}
+        </p>
+    </div>
+
+    <div class="col-md-6">
+        <div class="img-oferta">
+            <a href="#">
+                <img class="img-responsive img-hover" src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="">
+            </a>
+            <p class="precio">{{ oferta.precio }} € <span>-{{ oferta.descuento }}%</span></p>
+        </div>
+        <p><strong>Condiciones:</strong> {{ oferta.condiciones }}</p>
+    </div>
+</div>
+
+<div class="well clearfix datos-oferta">
+    <div class="pull-left"><strong>Finaliza</strong> {{ oferta.fechaExpiracion | date() }}</div>
+    <div class="pull-right"><strong>Compras:</strong> {{ oferta.compras }}</div>
+</div>
+
+<div class="well clearfix datos-oferta">
+    <div class="faltan">
+        {% set faltan = oferta.umbral - oferta.compras %}
+        {% if faltan > 0 %}
+            {# Si las compras no llegan al umbral mínimo establecido #}
+            Faltan <strong>{{ faltan }} compras</strong> para activar la oferta
+        {% else %}
+            {# Si las compras superan el umbral mínimo establecido #}
+            <strong>Oferta activada</strong> por superar las
+            <strong>{{ oferta.umbral }}</strong> compras necesarias
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h4>Disfruta de la oferta en</h4>
+        <address>
+            <strong><a href="index.php">{{ oferta.tienda.nombre }}</a></strong><br>
+            {{ oferta.tienda.direccion }}
+        </address>
+    </div>
+    <div class="col-md-8">
+        <h4>Sobre la tienda</h4>
+        <p>{{ oferta.tienda.descripcion }}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block sidebarcontent %}
+<!-- Blog Search Well -->
+<div class="well">
+    <h4>Buscar Oferta</h4>
+    <div class="input-group">
+        <input type="text" class="form-control">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+        </span>
+    </div>
+    <!-- /.input-group -->
+</div>
+
+<!-- Blog Categories Well -->
+<div class="well">
+    <h4>Categorias</h4>
+    <div class="row">
+        <div class="col-lg-6">
+            <ul class="list-unstyled">
+                <li><a href="#">Category Name</a></li>
+                <li><a href="#">Category Name</a></li>
+                <li><a href="#">Category Name</a></li>
+                <li><a href="#">Category Name</a></li>
+            </ul>
+        </div>
+        <!-- /.col-lg-6 -->
+        <div class="col-lg-6">
+            <ul class="list-unstyled">
+                <li><a href="#">Category Name</a></li>
+                <li><a href="#">Category Name</a></li>
+                <li><a href="#">Category Name</a></li>
+                <li><a href="#">Category Name</a></li>
+            </ul>
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+    <!-- /.row -->
+</div>
+
+<!-- Side Widget Well -->
+<div class="well">
+    <h4>Side Widget Well</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
+</div>
+{% endblock %}

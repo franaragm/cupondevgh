@@ -25,7 +25,7 @@ class DefaultController extends Controller
             throw $this->createNotFoundException('No se ha encontrado ninguna oferta del día');
         }
 
-        return $this->render('::portada.html.twig', array('oferta' => $oferta));
+        return $this->render(':frontend:portada.html.twig', array('oferta' => $oferta));
 
     }
 }

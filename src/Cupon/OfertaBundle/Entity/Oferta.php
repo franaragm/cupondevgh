@@ -421,8 +421,7 @@ class Oferta
     /**
      * Set ciudad
      *
-     * @param Cupon\CiudadBundle\Entity\Ciudad $ciudad
-     *
+     * @param \Cupon\CiudadBundle\Entity\Ciudad|Cupon\CiudadBundle\Entity\Ciudad $ciudad
      * @return Oferta
      */
     public function setCiudad(\Cupon\CiudadBundle\Entity\Ciudad $ciudad)
@@ -445,8 +444,7 @@ class Oferta
     /**
      * Set tienda
      *
-     * @param Cupon\TiendaBundle\Entity\Tienda $tienda
-     *
+     * @param Cupon\TiendaBundle\Entity\Tienda|\Cupon\TiendaBundle\Entity\Tienda $tienda
      * @return Oferta
      */
     public function setTienda(\Cupon\TiendaBundle\Entity\Tienda $tienda)

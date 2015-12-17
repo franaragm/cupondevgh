@@ -15,6 +15,6 @@ class SitioController extends Controller
      */
     public function estaticaAction($pagina)
     {
-        return $this->render('::estaticas/'.$pagina.'.html.twig');
+        return $this->render(':estaticas:'.$pagina.'.html.twig');
     }
 }
