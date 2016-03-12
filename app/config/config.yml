@@ -36,6 +36,8 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    globals:
+        ciudad_por_defecto: %cupon.ciudad_por_defecto%
 
 # Assetic Configuration
 assetic:

@@ -1,7 +1,5 @@
 {% extends ':frontend:base.html.twig' %}
-{% set ciudadSeleccionada = app.request.attributes.has('ciudad')
-? app.request.attributes.get('ciudad')
-: ciudad_por_defecto %}
+{% set ciudadSeleccionada = app.request.attributes.get('ciudad', ciudad_por_defecto) %}
 
 {% block body %}
     <!-- Navigation -->
@@ -17,10 +15,9 @@
                 </button>
                 <a class="navbar-brand" href="{{ path('portada', { 'ciudad': ciudadSeleccionada }) }}">CUPON</a>
                 <div class="selectcity">
-                    <select name="" id="ciudadseleccionada">
-                        <option value="madrid" data-url="">Madrid</option>
-                        <option value="barcelona" data-url="">Barcelona</option>
-                    </select>
+                    {{ render(controller('CiudadBundle:Default:listaCiudades', {
+                        'ciudad': ciudadSeleccionada
+                    })) }}
                 </div>
             </div>
 

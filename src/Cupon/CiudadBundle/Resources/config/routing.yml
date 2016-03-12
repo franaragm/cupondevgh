@@ -1,3 +1,6 @@
-ciudad_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: CiudadBundle:Default:index }
+# Ruta para cambiar la ciudad activa en la aplicación, se usa en la vista listaCiudades.html.twig
+ciudad_cambiar:
+    pattern:  /ciudad/cambiar-a-{ciudad}
+    defaults: { _controller: CiudadBundle:Default:cambiar }
+    requirements:
+            ciudad: .+

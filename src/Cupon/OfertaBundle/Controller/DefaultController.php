@@ -13,7 +13,7 @@ class DefaultController extends Controller
      * Muestra la portada del sitio web
      *
      * @param string $ciudad El slug de la ciudad activa en la aplicación
-     * @return null
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function portadaAction($ciudad)
     {
