@@ -1,0 +1,23 @@
+<div class="well">
+    <h4>Ofertas en otras ciudades</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="list-unstyled">
+                {% for oferta in relacionadas %}
+                    <li>{{ oferta.ciudad.nombre }}:
+                        <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <h4>Buscar Oferta</h4>
+    <div class="input-group">
+        <input type="text" class="form-control">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+        </span>
+    </div>
+</div>

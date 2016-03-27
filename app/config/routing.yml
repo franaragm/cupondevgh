@@ -10,9 +10,14 @@ ciudad:
     resource: "@CiudadBundle/Resources/config/routing.yml"
     prefix:   /
 
-oferta:
+OfertaBundle:
     resource: "@OfertaBundle/Resources/config/routing.yml"
     prefix:   /
+
+# Ruta de la página de detalle de una oferta
+oferta:
+    pattern:  /{ciudad}/ofertas/{slug}
+    defaults: { _controller: OfertaBundle:Default:oferta }
 
 # Ruta simple de la portada con redireccion
 _portada:

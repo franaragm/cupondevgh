@@ -1,0 +1,18 @@
+{% extends ':frontend:frontend.html.twig' %}
+
+{% block title %}
+    Detalles de {{ oferta.nombre }}
+{% endblock %}
+
+{% block maincontent %}
+    {% include ':frontend/includes:oferta.html.twig' %}
+{% endblock %}
+
+{% block sidebarcontent %}
+    <div class="well">
+        <h4>Condiciones de la Oferta</h4>
+        <p>{{ oferta.condiciones }}</p>
+    </div>
+
+    {% include ':frontend/includes:sidebarwidgets.html.twig' %}
+{% endblock %}

@@ -127,8 +127,24 @@ body {
     color: #00154E;
 }
 
+/* ------ Oferta boton comprar ------ */
+.boton-compra {
+    text-align: center;
+}
 
+.boton-compra a{
+    text-transform: uppercase;
+    display: block;
+    background-color: rgba(204,0,102,1);
+    border: none;
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
 
+.boton-compra a:hover{
+    background-color: rgba(204,0,102,0.80);
+}
 
 
 
