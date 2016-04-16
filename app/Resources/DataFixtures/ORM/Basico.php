@@ -4,11 +4,11 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Cupon\CiudadBundle\Entity\Ciudad;
-use Cupon\OfertaBundle\Entity\Oferta;
-use Cupon\TiendaBundle\Entity\Tienda;
-use Cupon\UsuarioBundle\Entity\Usuario;
-use Cupon\OfertaBundle\Entity\Venta;
+use AppBundle\Entity\Ciudad;
+use AppBundle\Entity\Oferta;
+use AppBundle\Entity\Tienda;
+use AppBundle\Entity\Usuario;
+use AppBundle\Entity\Venta;
 
 /**
  * Versión simplificada de los fixtures completos de la aplicación.
@@ -29,7 +29,7 @@ use Cupon\OfertaBundle\Entity\Venta;
  *   security:
  *     # ...
  *     encoders:
- *       Cupon\UsuarioBundle\Entity\Usuario: plaintext
+ *       AppBundle\Entity\Usuario: plaintext
  */
 class Basico implements FixtureInterface, ContainerAwareInterface
 {
@@ -52,7 +52,7 @@ class Basico implements FixtureInterface, ContainerAwareInterface
         $manager->flush();
         
         // Crear 10 tiendas en cada ciudad
-        $ciudades = $manager->getRepository('CiudadBundle:Ciudad')->findAll();
+        $ciudades = $manager->getRepository('AppBundle:Ciudad')->findAll();
         $numTienda = 0;
         foreach ($ciudades as $ciudad) {
             for ($i=1; $i<=10; $i++) {
@@ -78,10 +78,10 @@ class Basico implements FixtureInterface, ContainerAwareInterface
         $manager->flush();
         
         // Crear 50 ofertas en cada ciudad
-        $ciudades = $manager->getRepository('CiudadBundle:Ciudad')->findAll();
+        $ciudades = $manager->getRepository('AppBundle:Ciudad')->findAll();
         $numOferta = 0;
         foreach ($ciudades as $ciudad) {
-            $tiendas = $manager->getRepository('TiendaBundle:Tienda')->findByCiudad(
+            $tiendas = $manager->getRepository('AppBundle:Tienda')->findByCiudad(
                 $ciudad->getId()
             );
 
@@ -173,8 +173,8 @@ class Basico implements FixtureInterface, ContainerAwareInterface
         $manager->flush();
         
         // Crear 500 ventas aleatorias
-        $ofertas  = $manager->getRepository('OfertaBundle:Oferta')->findAll();
-        $usuarios = $manager->getRepository('UsuarioBundle:Usuario')->findAll();
+        $ofertas  = $manager->getRepository('AppBundle:Oferta')->findAll();
+        $usuarios = $manager->getRepository('AppBundle:Usuario')->findAll();
         
         foreach ($usuarios as $usuario) {
             $compras = rand(0, 10);

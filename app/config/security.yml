@@ -24,4 +24,4 @@ security:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
 
     encoders:
-        Cupon\UsuarioBundle\Entity\Usuario: plaintext
+        AppBundle\Entity\Usuario: plaintext

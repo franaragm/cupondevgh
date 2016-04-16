@@ -1,4 +1,4 @@
-# Proyecto CUPON en symfony 2.7
+# Proyecto CUPON en symfony 2.8
 
 1. Crear base de datos y configurar parametros en parameters.yml
 2. Actualizar dependencias

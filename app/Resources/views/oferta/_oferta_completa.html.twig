@@ -1,0 +1,54 @@
+<!-- Oferta -->
+<div class="row">
+    <div class="col-md-6 descripcion">
+        <h2>
+            <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a>
+        </h2>
+        <p>
+            {{ oferta.descripcion | truncate(200, true) }}
+        </p>
+    </div>
+
+    <div class="col-md-6">
+        <div class="img-oferta">
+            <a href="#">
+                <img class="img-responsive img-hover" src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="">
+            </a>
+            <p class="precio">{{ oferta.precio }} € <span>-{{ oferta.descuento }}%</span></p>
+        </div>
+        <div class="boton-compra"><a class="btn btn-primary btn-lg" href="#" role="button">Comprar</a></div>
+    </div>
+</div>
+
+<div class="well clearfix datos-oferta">
+    <div class="pull-left"><strong>Finaliza</strong> {{ oferta.fechaExpiracion | date() }}</div>
+    <div class="pull-right"><strong>Compras:</strong> {{ oferta.compras }}</div>
+</div>
+
+<div class="well clearfix datos-oferta">
+    <div class="faltan">
+        {% set faltan = oferta.umbral - oferta.compras %}
+        {% if faltan > 0 %}
+            {# Si las compras no llegan al umbral mínimo establecido #}
+            Faltan <strong>{{ faltan }} compras</strong> para activar la oferta
+        {% else %}
+            {# Si las compras superan el umbral mínimo establecido #}
+            <strong>Oferta activada</strong> por superar las
+            <strong>{{ oferta.umbral }}</strong> compras necesarias
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h4>Disfruta de la oferta en</h4>
+        <address>
+            <strong><a href="#">{{ oferta.tienda.nombre }}</a></strong><br>
+            {{ oferta.tienda.direccion }}
+        </address>
+    </div>
+    <div class="col-md-8">
+        <h4>Sobre la tienda</h4>
+        <p>{{ oferta.tienda.descripcion }}</p>
+    </div>
+</div>

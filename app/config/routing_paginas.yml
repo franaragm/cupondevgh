@@ -1,12 +1,16 @@
 # Rutas de las páginas estáticas del sitio
 ayuda:
-    pattern:  /ayuda/
-    defaults: { template: '::estaticas/ayuda.html.twig' }
+    path:  /ayuda/
+    defaults: { template: '::sitio/ayuda.html.twig' }
 
 privacidad:
-    pattern:  /privacidad/
-    defaults: { template: '::estaticas/privacidad.html.twig' }
+    path:  /privacidad/
+    defaults: { template: '::sitio/privacidad.html.twig' }
 
-sobre_nosotros:
-    pattern:  /sobre-nosotros/
-    defaults: { template: '::estaticas/sobre-nosotros.html.twig' }
+sobre-nosotros:
+    path:  /sobre-nosotros/
+    defaults: { template: '::sitio/sobre-nosotros.html.twig' }
+
+contacto:
+    path:  /contacto/
+    defaults: { template: '::sitio/contacto.html.twig' }

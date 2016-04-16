@@ -1,3 +1,0 @@
-usuario_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: UsuarioBundle:Default:index }

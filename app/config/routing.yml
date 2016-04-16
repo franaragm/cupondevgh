@@ -1,39 +1,17 @@
-usuario:
-    resource: "@UsuarioBundle/Resources/config/routing.yml"
+app:
+    resource: '@AppBundle/Controller/'
+    type:   annotation
     prefix:   /
 
-tienda:
-    resource: "@TiendaBundle/Resources/config/routing.yml"
-    prefix:   /
-
-ciudad:
-    resource: "@CiudadBundle/Resources/config/routing.yml"
-    prefix:   /
-
-OfertaBundle:
-    resource: "@OfertaBundle/Resources/config/routing.yml"
-    prefix:   /
-
-# Ruta de la página de detalle de una oferta
-oferta:
-    pattern:  /{ciudad}/ofertas/{slug}
-    defaults: { _controller: OfertaBundle:Default:oferta }
-
-# Ruta simple de la portada con redireccion
+# Ruta de la portada básica del sitio (sin ningún parámetro)
+# esta ruta es opcional, ya que la aplicación puede funcionar bien
+# solamente con la ruta 'portada' y sus valores por defecto
 _portada:
     path:  /
-    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: portada, ciudad: '%cupon.ciudad_por_defecto%' }
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: portada, ciudad: '%app.ciudad_por_defecto%' }
 
-# Ruta completa de la portada (con el slug de la ciudad)
-portada:
-    path:  /{ciudad}/
-    defaults: { _controller: OfertaBundle:Default:portada, ciudad: %cupon.ciudad_por_defecto% }
 
-pagina_estatica:
-    path:     /sitio/{pagina}/
-    defaults: { _controller: OfertaBundle:Sitio:estatica }
-
-#_paginas_estaticas:
-#    resource: routing_paginas.yml
-#    prefix: /sitio
-#    defaults: { _controller: FrameworkBundle:Template:template }
+_paginas:
+    resource: routing_paginas.yml
+    prefix: /sitio
+    defaults: { _controller: FrameworkBundle:Template:template }
