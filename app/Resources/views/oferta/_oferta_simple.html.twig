@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-7 descripcion">
+        <h2>
+            <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a>
+        </h2>
+
+        <p>
+            {{ oferta.descripcion | mostrar_como_lista }}
+        </p>
+    </div>
+
+    <div class="col-md-5">
+        <div class="img-oferta">
+            <a href="#">
+                <img class="img-responsive img-hover" src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="">
+            </a>
+
+            <p class="precio">{{ oferta.precio }} € <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
+        </div>
+        <p>Disfruta de la oferta en <strong><a href="#">{{ oferta.tienda.nombre }}</a></strong></p>
+    </div>
+</div>
+
+<div class="well well-sm clearfix datos-oferta-reciente">
+    <div class="pull-left"><strong>Faltan</strong> {{ oferta.fechaExpiracion | cuenta_atras }}</div>
+    <div class="pull-right"><strong>Compras:</strong> {{ oferta.compras }}</div>
+</div>
+
+<hr>

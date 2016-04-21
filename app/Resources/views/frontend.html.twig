@@ -24,11 +24,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active">
+                    <li class="{% block pageportada '' %}">
                         <a href="{{ path('portada') }}">Oferta del día</a>
                     </li>
-                    <li>
-                        <a href="#">Ofertas recientes</a>
+                    <li class="{% block pagerecientes '' %}">
+                        <a href="{{ path('ciudad_recientes', { ciudad: ciudadSeleccionada }) }}">Ofertas recientes</a>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mis ofertas <b class="caret"></b></a>
@@ -60,9 +60,7 @@
 
         <div class="row">
             <!-- Main Content -->
-            <div class="col-md-9">
-                {% block maincontent %}{% endblock %}
-            </div>
+            {% block maincontent %}{% endblock %}
 
             <!-- Sidebar -->
             <div class="col-md-3">

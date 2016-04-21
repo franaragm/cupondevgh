@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Util\Slugger;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CiudadRepository")
  * @ORM\Table(name="CuponDev_Ciudad")
  */
 class Ciudad

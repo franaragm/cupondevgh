@@ -13,7 +13,6 @@ h2, h3, h4 {
     color: #C06;
 }
 
-
 body {
     padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
@@ -33,7 +32,7 @@ body {
 }
 
 .navbar-inverse .navbar-brand,
-.navbar-inverse .navbar-nav>li>a {
+.navbar-inverse .navbar-nav > li > a {
     color: #fff;
 }
 
@@ -43,20 +42,20 @@ body {
 }
 
 .navbar-brand:hover,
-.navbar-inverse .navbar-nav>li>a:hover {
+.navbar-inverse .navbar-nav > li > a:hover {
     color: #FF3385 !important;
 }
 
-.navbar-inverse .navbar-nav>.active>a,
-.navbar-inverse .navbar-nav>.active>a:focus,
-.navbar-inverse .navbar-nav>.active>a:hover {
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse .navbar-nav > .active > a:hover {
     color: #00154E !important;
     background-color: #FF3385 !important;
 }
 
-.dropdown-menu>.active>a,
-.dropdown-menu>.active>a:focus,
-.dropdown-menu>.active>a:hover {
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:focus,
+.dropdown-menu > .active > a:hover {
     color: #00154E !important;
     background-color: #FF3385 !important;
 }
@@ -83,12 +82,12 @@ body {
     margin-bottom: 15px;
 }
 
-.banner-cupon p{
+.banner-cupon p {
     margin: 0px;
     text-align: center;
 }
 
-.banner-cupon .btn{
+.banner-cupon .btn {
     font-size: 20px;
     background-color: #00154E;
 }
@@ -98,7 +97,7 @@ body {
     color: #C06;
 }
 
-.img-oferta{
+.img-oferta {
     margin-top: 20px;
     margin-bottom: -55px;
 }
@@ -132,22 +131,28 @@ body {
     text-align: center;
 }
 
-.boton-compra a{
+.boton-compra a {
     text-transform: uppercase;
     display: block;
-    background-color: rgba(204,0,102,1);
+    background-color: rgba(204, 0, 102, 1);
     border: none;
     font-weight: bold;
     font-size: 25px;
     margin-bottom: 15px;
 }
 
-.boton-compra a:hover{
-    background-color: rgba(204,0,102,0.80);
+.boton-compra a:hover {
+    background-color: rgba(204, 0, 102, 0.80);
 }
 
+/* ------ Ofertas Recientes ------ */
+.ofertas-recientes h2 {
+    color: #00154E;
+}
 
-
+.ofertas-recientes h3 a {
+    color: #C06;
+}
 
 /* Home Page Carousel */
 header.carousel {
@@ -207,13 +212,8 @@ footer #idioma {
     float: right;
 }
 
-
-
-
-
-
 /* Responsive Styles */
-@media(max-width:991px) {
+@media (max-width: 991px) {
     .customer-img,
     .img-related {
         margin-bottom: 30px;
@@ -221,7 +221,7 @@ footer #idioma {
 
 }
 
-@media(max-width:767px) {
+@media (max-width: 767px) {
     .img-portfolio {
         margin-bottom: 15px;
     }
@@ -230,11 +230,11 @@ footer #idioma {
         height: 70%;
     }
 
-    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
         color: #fff;
     }
 
-    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
         color: #FF3385;
     }
 
@@ -242,7 +242,7 @@ footer #idioma {
         font-size: 15px;
     }
 
-    .datos-oferta div.pull-left, .datos-oferta div.pull-right{
+    .datos-oferta div.pull-left, .datos-oferta div.pull-right {
         float: none !important;
     }
 

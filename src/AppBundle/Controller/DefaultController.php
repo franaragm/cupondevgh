@@ -25,7 +25,7 @@ class DefaultController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $oferta = $em->getRepository('AppBundle:Oferta')->findOfertaDelDia($ciudad);
-        $relacionadas = $em->getRepository('AppBundle:Oferta')->findRelacionadas($ciudad);
+        $ofertas_cercanas = $em->getRepository('AppBundle:Oferta')->findCercanas($ciudad);
 
         if (!$oferta) {
             throw $this->createNotFoundException('No se ha encontrado ninguna oferta del día');
@@ -33,7 +33,7 @@ class DefaultController extends Controller
 
         return $this->render(':sitio:portada.html.twig', array(
             'oferta' => $oferta,
-            'relacionadas' => $relacionadas
+            'ofertas_cercanas' => $ofertas_cercanas
         ));
 
     }

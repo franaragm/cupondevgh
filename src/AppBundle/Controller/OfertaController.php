@@ -22,11 +22,11 @@ class OfertaController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $oferta = $em->getRepository('AppBundle:Oferta')->findOferta($ciudad, $slug);
-        $relacionadas = $em->getRepository('AppBundle:Oferta')->findRelacionadas($ciudad);
+        $ofertas_cercanas = $em->getRepository('AppBundle:Oferta')->findCercanas($ciudad);
 
         return $this->render(':oferta:detalle.html.twig', array(
             'oferta'   => $oferta,
-            'relacionadas' => $relacionadas
+            'ofertas_cercanas' => $ofertas_cercanas
         ));
     }
 }

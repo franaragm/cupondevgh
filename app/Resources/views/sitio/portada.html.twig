@@ -1,5 +1,6 @@
 {% extends 'frontend.html.twig' %}
 
+{% block pageportada 'active' %}
 {% block title %}
     Cupon, cada día ofertas increíbles en tu ciudad con descuentos de hasta el 90%
 {% endblock %}
@@ -25,5 +26,6 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
     </div>
 
-    {% include ':oferta:_oferta_sidebar.html.twig' %}
+    {% include ':oferta:_oferta_sidebar_ofertas_cercanas.html.twig' %}
+    {% include ':oferta:_oferta_sidebar_search.html.twig' %}
 {% endblock %}

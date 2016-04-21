@@ -18,8 +18,11 @@ class OfertaRepository extends EntityRepository
         $em = $this->getEntityManager();
         $consulta = $em->createQuery('
             SELECT o, c, t
-            FROM AppBundle:Oferta o JOIN o.ciudad c JOIN o.tienda t
-            WHERE o.revisada = true AND o.slug = :slug AND c.slug = :ciudad
+            FROM AppBundle:Oferta o
+            JOIN o.ciudad c JOIN o.tienda t
+            WHERE o.revisada = true
+            AND o.slug = :slug
+            AND c.slug = :ciudad
         ');
         $consulta->setParameter('slug', $slug);
         $consulta->setParameter('ciudad', $ciudad);
@@ -69,7 +72,7 @@ class OfertaRepository extends EntityRepository
      * @param string $ciudad El slug de la ciudad
      * @return array
      */
-    public function findRelacionadas($ciudad)
+    public function findCercanas($ciudad)
     {
         $em = $this->getEntityManager();
         $consulta = $em->createQuery('
@@ -85,6 +88,29 @@ class OfertaRepository extends EntityRepository
         $consulta->setParameter('ciudad', $ciudad);
         $consulta->setParameter('fecha', new \DateTime('today'));
 
+        return $consulta->getResult();
+    }
+
+    /**
+     * Encuentra las cinco ofertas más recientes de la ciudad indicada.
+     *
+     * @param $ciudadId
+     * @return array
+     */
+    public function findRecientes($ciudadId)
+    {
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+            SELECT o, t
+            FROM AppBundle:Oferta o JOIN o.tienda t
+            WHERE o.revisada = true
+            AND o.fechaPublicacion < :fecha
+            AND o.ciudad = :id
+            ORDER BY o.fechaPublicacion DESC
+        ');
+        $consulta->setMaxResults(5);
+        $consulta->setParameter('id', $ciudadId);
+        $consulta->setParameter('fecha', new \DateTime('today'));
         return $consulta->getResult();
     }
 

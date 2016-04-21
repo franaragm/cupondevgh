@@ -1,0 +1,39 @@
+{% extends 'frontend.html.twig' %}
+
+{% block pagerecientes 'active' %}
+{% block title %}
+    Ofertas recientes en {{ ciudad.nombre }}
+{% endblock %}
+
+{% block maincontent %}
+    <div class="col-md-9 ofertas-recientes">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2><strong>Ofertas recientes en {{ ciudad.nombre }}</strong></h2>
+            </div>
+        </div>
+
+        {% for oferta in ofertas %}
+            {{ include(':oferta:_oferta_simple.html.twig') }}
+        {% else %}
+            <p>Esta ciudad todavía no ha publicado ninguna oferta</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block sidebarcontent %}
+    <div class="well">
+        <h4>Ofertas en otras ciudades</h4>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="list-unstyled">
+                    {% for ciudad in cercanas %}
+                        <li><a href="{{ path('ciudad_recientes', {'ciudad': ciudad.slug }) }}">{{ ciudad.nombre }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
