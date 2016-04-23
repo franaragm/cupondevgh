@@ -92,7 +92,7 @@ body {
     background-color: #00154E;
 }
 
-/* ------ Oferta Destacada del dia ------ */
+/* -------- Oferta -------- */
 .descripcion h2 a {
     color: #C06;
 }
@@ -121,9 +121,11 @@ body {
     text-shadow: 0 1px 1px #00154E;
 }
 
-.datos-oferta {
-    font-size: 20px;
-    color: #00154E;
+/* ------ Datos ofertas ------ */
+.datos-oferta, .datos-oferta-reciente {
+    font-size: 18px;
+    color: #fff;
+    background-color: #00154E;
 }
 
 /* ------ Oferta boton comprar ------ */
@@ -153,6 +155,7 @@ body {
 .ofertas-recientes h3 a {
     color: #C06;
 }
+
 
 /* Home Page Carousel */
 header.carousel {
@@ -238,11 +241,12 @@ footer #idioma {
         color: #FF3385;
     }
 
-    .datos-oferta {
+    .datos-oferta, .datos-oferta-reciente {
         font-size: 15px;
     }
 
-    .datos-oferta div.pull-left, .datos-oferta div.pull-right {
+    .datos-oferta div.pull-left, .datos-oferta div.pull-right,
+    .datos-oferta-reciente div.pull-left, .datos-oferta-reciente div.pull-right {
         float: none !important;
     }
 

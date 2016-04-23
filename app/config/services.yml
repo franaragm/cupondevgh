@@ -22,3 +22,8 @@ services:
             class: AppBundle\Twig\Extension\CuponExtension
             tags:
                 - { name: twig.extension }
+
+    twig.extension.intl:
+            class: Twig_Extensions_Extension_Intl
+            tags:
+                - { name: twig.extension }

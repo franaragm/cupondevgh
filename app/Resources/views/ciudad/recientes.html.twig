@@ -23,17 +23,7 @@
 {% endblock %}
 
 {% block sidebarcontent %}
-    <div class="well">
-        <h4>Ofertas en otras ciudades</h4>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <ul class="list-unstyled">
-                    {% for ciudad in cercanas %}
-                        <li><a href="{{ path('ciudad_recientes', {'ciudad': ciudad.slug }) }}">{{ ciudad.nombre }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </div>
+    {% include ':sidebar:_sidebar_ofertas_ciudades.html.twig' %}
+    {% include ':sidebar:_sidebar_search.html.twig' %}
+    {% include ':sidebar:_sidebar_sobre_nosotros.html.twig' %}
 {% endblock %}

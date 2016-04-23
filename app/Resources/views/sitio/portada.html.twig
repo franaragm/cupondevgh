@@ -21,11 +21,7 @@
 {% endblock %}
 
 {% block sidebarcontent %}
-    <div class="well">
-        <h4>Sobre nosotros</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, perspiciatis adipisci accusamus laudantium odit aliquam repellat tempore quos aspernatur vero.</p>
-    </div>
-
-    {% include ':oferta:_oferta_sidebar_ofertas_cercanas.html.twig' %}
-    {% include ':oferta:_oferta_sidebar_search.html.twig' %}
+    {% include ':sidebar:_sidebar_sobre_nosotros.html.twig' %}
+    {% include ':sidebar:_sidebar_ofertas_cercanas.html.twig' %}
+    {% include ':sidebar:_sidebar_search.html.twig' %}
 {% endblock %}

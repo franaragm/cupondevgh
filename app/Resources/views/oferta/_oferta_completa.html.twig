@@ -1,3 +1,5 @@
+{% set expirada = oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdHis') %}
+
 <div class="col-md-9">
     <div class="row">
         <div class="col-md-6 descripcion">
@@ -19,27 +21,33 @@
                 <p class="precio">{{ oferta.precio }} € <span>{{ descuento(oferta.precio, oferta.descuento) }}</span>
                 </p>
             </div>
-            <div class="boton-compra"><a class="btn btn-primary btn-lg" href="#" role="button">Comprar</a></div>
-        </div>
-    </div>
-
-    <div class="well clearfix datos-oferta">
-        <div class="pull-left"><strong>Faltan</strong> {{ oferta.fechaExpiracion | cuenta_atras }}</div>
-        <div class="pull-right"><strong>Compras:</strong> {{ oferta.compras }}</div>
-    </div>
-
-    <div class="well clearfix datos-oferta">
-        <div class="faltan">
-            {% set faltan = oferta.umbral - oferta.compras %}
-            {% if faltan > 0 %}
-                {# Si las compras no llegan al umbral mínimo establecido #}
-                Faltan <strong>{{ faltan }} compras</strong> para activar la oferta
-            {% else %}
-                {# Si las compras superan el umbral mínimo establecido #}
-                <strong>Oferta activada</strong> por superar las
-                <strong>{{ oferta.umbral }}</strong> compras necesarias
+            {% if not expirada %}
+                <div class="boton-compra"><a class="btn btn-primary btn-lg" href="#" role="button">Comprar</a></div>
             {% endif %}
         </div>
+    </div>
+
+    <div class="well clearfix datos-oferta">
+        {% if not expirada %}
+            {% trans with {'%tiempo%': oferta.fechaExpiracion | cuenta_atras } %}
+            <div class="pull-left">Expira en %tiempo%
+                {% endtrans %}
+                <br>
+                {% set faltan = oferta.umbral - oferta.compras %}
+                {% if faltan > 0 %}
+                    {# Si las compras no llegan al umbral mínimo establecido #}
+                    Faltan {{ faltan }} compras para activar la oferta
+                {% else %}
+                    {# Si las compras superan el umbral mínimo establecido #}
+                    Oferta activada por superar las {{ oferta.umbral }} compras necesarias
+                {% endif %}
+            </div>
+            <div class="pull-right">Compras: {{ oferta.compras }}</div>
+        {% else %}
+            {% trans with { '%fecha%': oferta.fechaExpiracion | localizeddate('long', 'none') } %}
+            <div class="pull-left">Finalizada el %fecha%</div>
+            {% endtrans %}
+        {% endif %}
     </div>
 
     <div class="row">
