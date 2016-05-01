@@ -1,0 +1,60 @@
+{% extends 'frontend.html.twig' %}
+
+{% block title %}
+    Tienda {{ tienda.nombre }}
+{% endblock %}
+
+{% block maincontent %}
+    <div class="col-md-9 info-tienda">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ tienda.nombre }}</h2>
+
+                <p>{{ tienda.descripcion }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                {% if ofertas_tienda is not empty %}
+                    <h3>Últimas ofertas publicadas</h3>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Oferta</th>
+                            <th>Precio</th>
+                            <th>Descuento</th>
+                            <th>Compras</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for oferta in ofertas_tienda %}
+                            <tr>
+                                <td>{{ oferta.fechaPublicacion|localizeddate('long', 'none') }}</td>
+                                <td>
+                                    <a href="{{ path('oferta', { ciudad: oferta.ciudad.slug, slug: oferta.slug }) }}">{{ oferta.nombre }}</a>
+                                </td>
+                                <td>{{ oferta.precio }} €</td>
+                                <td>{{ oferta.descuento }} €</td>
+                                <td>{{ oferta.compras }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>No hay ofertas recientes para esta tienda</p>
+                {% endif %}
+            </div>
+        </div>
+
+        </hr>
+    </div>
+{% endblock %}
+
+{% block sidebarcontent %}
+    {% include ':sidebar:_sidebar_tiendas_cercanas.html.twig' %}
+    {% include ':sidebar:_sidebar_sobre_nosotros.html.twig' %}
+    {% include ':sidebar:_sidebar_search.html.twig' %}
+{% endblock %}

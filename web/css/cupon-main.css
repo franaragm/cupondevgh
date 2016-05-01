@@ -147,15 +147,14 @@ body {
     background-color: rgba(204, 0, 102, 0.80);
 }
 
-/* ------ Ofertas Recientes ------ */
-.ofertas-recientes h2 {
+/* ------ Ofertas Recientes & Info Tienda Colores de Titulos ------ */
+.ofertas-recientes h2, .info-tienda h2 {
     color: #00154E;
 }
 
-.ofertas-recientes h3 a {
+.ofertas-recientes h3 a, .info-tienda h3 {
     color: #C06;
 }
-
 
 /* Home Page Carousel */
 header.carousel {

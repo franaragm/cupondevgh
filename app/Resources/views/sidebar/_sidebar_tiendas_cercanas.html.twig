@@ -1,0 +1,12 @@
+<div class="well">
+    <h4>Otras tiendas en {{ tienda.ciudad.nombre }}</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="list-unstyled">
+                {% for tienda in tiendas_cercanas %}
+                    <li><a href="{{ path('tienda_portada', { ciudad: tienda.ciudad.slug, tienda: tienda.slug }) }}">{{ tienda.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

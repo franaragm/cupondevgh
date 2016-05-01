@@ -9,12 +9,16 @@
         <p>
             {{ oferta.descripcion | mostrar_como_lista }}
         </p>
-        <p>Disfruta de la oferta en <strong><a href="#">{{ oferta.tienda.nombre }}</a></strong></p>
+
+        <p>
+            Disfruta de la oferta en
+            <strong><a href="{{ path('tienda_portada', { ciudad: oferta.ciudad.slug, tienda: oferta.tienda.slug }) }}">{{ oferta.tienda.nombre }}</a></strong>
+        </p>
     </div>
 
     <div class="col-md-5">
         <div class="img-oferta">
-            <a href="#">
+            <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">
                 <img class="img-responsive img-hover" src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="">
             </a>
 
@@ -46,9 +50,6 @@
         <div class="pull-left">Finalizada el %fecha%</div>
         {% endtrans %}
     {% endif %}
-
-
-
 </div>
 
 <hr>
