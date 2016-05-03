@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <div class="img-oferta">
                 <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">
-                    <img class="img-responsive img-hover" src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="">
+                    <img class="img-responsive img-hover" src="{{ asset(oferta.rutaFoto, 'ofertas') }}" alt="Fotografía de la oferta">
                 </a>
 
                 <p class="precio">{{ oferta.precio }} € <span>{{ descuento(oferta.precio, oferta.descuento) }}</span>
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="well clearfix datos-oferta">
+    <div class="well clearfix datos-oferta {{ expirada ? 'expirada': '' }}">
         {% if not expirada %}
             {% trans with {'%tiempo%': oferta.fechaExpiracion | cuenta_atras } %}
             <div class="pull-left">Expira en %tiempo%

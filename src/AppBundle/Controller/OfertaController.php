@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OfertaController extends Controller
 {
@@ -16,6 +17,7 @@ class OfertaController extends Controller
      * @param string $slug El slug de la oferta (el mismo slug se puede dar en dos o más ciudades diferentes)
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws NotFoundHttpException
      */
     public function ofertaAction($ciudad, $slug)
     {
@@ -23,6 +25,10 @@ class OfertaController extends Controller
 
         $oferta = $em->getRepository('AppBundle:Oferta')->findOferta($ciudad, $slug);
         $ofertas_cercanas = $em->getRepository('AppBundle:Oferta')->findCercanas($ciudad);
+
+        if (!$oferta) {
+            throw $this->createNotFoundException('No se ha encontrado la oferta solicitada');
+        }
 
         return $this->render(':oferta:detalle.html.twig', array(
             'oferta'   => $oferta,

@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: es
     app.ciudad_por_defecto: 'madrid'
+    app.ruta.fotos_ofertas: '/uploads/images/'
 
 framework:
     #esi:             ~
@@ -31,6 +32,10 @@ framework:
         handler_id:  ~
     fragments:       ~
     http_method_override: true
+    assets:
+        packages:
+            ofertas:
+                base_path: '%app.ruta.fotos_ofertas%'
 
 # Twig Configuration
 twig:

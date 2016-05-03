@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TiendaController extends Controller
 {
@@ -17,6 +18,8 @@ class TiendaController extends Controller
      * @param string $ciudad El slug de la ciudad donde se encuentra la tienda
      * @param string $tienda El slug de la tienda
      * @return Response
+     *
+     * @throws NotFoundHttpException
      */
     public function portadaAction($ciudad, $tienda)
     {

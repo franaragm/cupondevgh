@@ -1,7 +1,7 @@
 {% set expirada = oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdHis') %}
 
 <div class="row">
-    <div class="col-md-7 descripcion">
+    <div class="col-md-8 descripcion">
         <h2>
             <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ oferta.nombre }}</a>
         </h2>
@@ -16,10 +16,10 @@
         </p>
     </div>
 
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="img-oferta">
             <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">
-                <img class="img-responsive img-hover" src="{{ asset('uploads/images/' ~ oferta.rutaFoto) }}" alt="">
+                <img class="img-responsive img-hover" src="{{ asset(oferta.rutaFoto, 'ofertas') }}" alt="Fotografía de la oferta">
             </a>
 
             <p class="precio">{{ oferta.precio }} € <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="well well-sm clearfix datos-oferta-reciente">
+<div class="well well-sm clearfix datos-oferta-reciente {{ expirada ? 'expirada': '' }}">
     {% if not expirada %}
         {% trans with {'%tiempo%': oferta.fechaExpiracion | cuenta_atras } %}
         <div class="pull-left">Expira en %tiempo%</div>
