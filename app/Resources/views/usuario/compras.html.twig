@@ -1,0 +1,29 @@
+{% extends 'frontend.html.twig' %}
+
+{% block title 'Últimas ofertas que has comprado' %}
+
+{% block maincontent %}
+    <div class="col-md-9 ofertas-recientes">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2><strong>{{ block('title') }}</strong></h2>
+            </div>
+        </div>
+
+        {% for compra in compras_usuario %}
+            {{ include(':oferta:_oferta_simple.html.twig', {
+                'oferta' : compra.oferta,
+                'comprada' : true,
+                'fechaCompra' : compra.fecha
+            }) }}
+        {% else %}
+            <p>No se ha realizado ninguna compra</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block sidebarcontent %}
+    {% include ':sidebar:_sidebar_search.html.twig' %}
+    {% include ':sidebar:_sidebar_sobre_nosotros.html.twig' %}
+{% endblock %}

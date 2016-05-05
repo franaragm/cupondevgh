@@ -14,7 +14,7 @@
             </div>
         </div>
 
-        {% for oferta in ofertas %}
+        {% for oferta in ofertas_ciudad %}
             {{ include(':oferta:_oferta_simple.html.twig') }}
         {% else %}
             <p>Esta ciudad todavía no ha publicado ninguna oferta</p>

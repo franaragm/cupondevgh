@@ -134,6 +134,12 @@ body {
     font-size: 15px;
 }
 
+.comprada {
+    color: #fff;
+    background-color: #00154E;
+    font-size: 15px;
+}
+
 /* ------ Oferta boton comprar ------ */
 .boton-compra {
     text-align: center;

@@ -67,13 +67,13 @@ class CiudadController extends Controller
             throw $this->createNotFoundException('La ciudad indicada no está disponible');
         }
 
-        $cercanas = $em->getRepository('AppBundle:Ciudad')->findCercanas($ciudad->getId());
-        $ofertas = $em->getRepository('AppBundle:Oferta')->findRecientes($ciudad->getId());
+        $ciudades_cercanas = $em->getRepository('AppBundle:Ciudad')->findCercanas($ciudad->getId());
+        $ofertas_ciudad = $em->getRepository('AppBundle:Oferta')->findRecientes($ciudad->getId());
 
         return $this->render('ciudad/recientes.html.twig', array(
             'ciudad' => $ciudad,
-            'cercanas' => $cercanas,
-            'ofertas' => $ofertas,
+            'ciudades_cercanas' => $ciudades_cercanas,
+            'ofertas_ciudad' => $ofertas_ciudad,
         ));
     }
 

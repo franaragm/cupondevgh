@@ -1,4 +1,5 @@
 {% set expirada = oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdHis') %}
+{% set comprada = comprada|default(false) %}
 
 <div class="row">
     <div class="col-md-8 descripcion">
@@ -19,19 +20,24 @@
     <div class="col-md-4">
         <div class="img-oferta">
             <a href="{{ path('oferta', {'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">
-                <img class="img-responsive img-hover" src="{{ asset(oferta.rutaFoto, 'ofertas') }}" alt="Fotografía de la oferta">
+                <img class="img-responsive img-hover" src="{{ asset(oferta.rutaFoto, 'ofertas') }}"
+                     alt="Fotografía de la oferta">
             </a>
 
             <p class="precio">{{ oferta.precio }} € <span>{{ descuento(oferta.precio, oferta.descuento) }}</span></p>
         </div>
-        {% if not expirada %}
+        {% if not expirada and not comprada %}
             <div class="boton-compra"><a class="btn btn-primary btn-lg" href="#" role="button">Comprar</a></div>
         {% endif %}
     </div>
 </div>
 
-<div class="well well-sm clearfix datos-oferta-reciente {{ expirada ? 'expirada': '' }}">
-    {% if not expirada %}
+<div class="well well-sm clearfix datos-oferta-reciente {{ expirada ? 'expirada' }} {{ comprada ? 'comprada' }}">
+    {% if comprada %}
+        {% trans with { '%fecha%': fechaCompra|localizeddate('long', 'medium') } %}
+        <div class="pull-left">Comprada el %fecha%</div>
+        {% endtrans %}
+    {% elseif not expirada %}
         {% trans with {'%tiempo%': oferta.fechaExpiracion | cuenta_atras } %}
         <div class="pull-left">Expira en %tiempo%</div>
         {% endtrans %}
