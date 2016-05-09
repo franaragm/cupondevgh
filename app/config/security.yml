@@ -2,26 +2,42 @@
 # http://symfony.com/doc/current/book/security.html
 security:
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
+
+        # Usuarios del frontend
+        usuarios:
+            entity: { class: AppBundle\Entity\Usuario, property: email }
+
         in_memory:
             memory: ~
 
     firewalls:
+
+        # Firewall global utilizado en la parte pública o frontend
+        frontend:
+            pattern:        ^/*
+            anonymous:      ~
+            form_login:
+                login_path: usuario_login
+                check_path: usuario_login_check
+
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            anonymous: ~
-            # activate different ways to authenticate
+    access_control:
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+        - { path: ^/usuario/(login|registro), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/usuario/*, roles: ROLE_USUARIO }
 
     encoders:
+
+        # el coste del algoritmo se ha reducido a 8 para que la carga de los datos
+        # de prueba no sea demasiado lenta (se generan cientos de usuarios). En
+        # una aplicación real, es mejor no cambiar el valor por defecto (que es 12)
         AppBundle\Entity\Usuario: plaintext
+
+    role_hierarchy:
+
+        ROLE_ADMIN: ROLE_USUARIO

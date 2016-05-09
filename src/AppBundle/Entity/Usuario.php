@@ -3,13 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use AppBundle\Util\Slugger;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
  * @ORM\Table(name="CuponDev_Usuario")
  */
-class Usuario
+class Usuario implements UserInterface
 {
     /**
      * @var integer
@@ -109,7 +110,7 @@ class Usuario
 
     public function __toString()
     {
-        return $this->getNombre().' '.$this->getApellidos();
+        return $this->getNombre() . ' ' . $this->getApellidos();
     }
 
     /**
@@ -231,16 +232,6 @@ class Usuario
         $this->salt = $salt;
 
         return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
     }
 
     /**
@@ -409,6 +400,38 @@ class Usuario
     public function getCiudad()
     {
         return $this->ciudad;
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface.
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USUARIO');
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface.
+     */
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface.
+     */
+    public function eraseCredentials()
+    {
+        $this->passwordEnClaro = null;
+    }
+
+    /**
+     * Este método es requerido por la interfaz UserInterface, pero esta clase
+     * no necesita implementarlo porque se usa 'bcrypt' para codificar las contraseñas.
+     */
+    public function getSalt()
+    {
     }
 }
 

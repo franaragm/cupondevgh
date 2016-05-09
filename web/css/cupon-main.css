@@ -168,6 +168,17 @@ body {
     color: #C06;
 }
 
+/* ------ Login ------ */
+.login {
+
+}
+
+/* ------ AUX CLASES ------ */
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
 /* Home Page Carousel */
 header.carousel {
     height: 50%;
