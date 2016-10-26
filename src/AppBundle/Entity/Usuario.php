@@ -105,7 +105,7 @@ class Usuario implements UserInterface
 
     public function __construct()
     {
-        $this->fecha_alta = new \DateTime();
+        $this->fechaAlta = new \DateTime();
     }
 
     public function __toString()
@@ -423,7 +423,7 @@ class Usuario implements UserInterface
      */
     public function eraseCredentials()
     {
-        $this->passwordEnClaro = null;
+        $this->password = null;
     }
 
     /**
@@ -432,6 +432,7 @@ class Usuario implements UserInterface
      */
     public function getSalt()
     {
+        return null;
     }
 }
 
