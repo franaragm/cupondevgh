@@ -8,7 +8,8 @@
 /app/phpunit.xml
 /build/
 /vendor/
-/composer.phar 
+/composer.phar
+/bin/
  
 # -- Editores -----------------------------------------
 # vim
