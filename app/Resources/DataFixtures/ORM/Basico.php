@@ -150,8 +150,15 @@ class Basico implements FixtureInterface, ContainerAwareInterface
                 $usuario->setNombre('Usuario #'.$numUsuario);
                 $usuario->setApellidos('Apellido1 Apellido2');
                 $usuario->setEmail('usuario'.$numUsuario.'@localhost');
-                $usuario->setSalt('');
-                $usuario->setPassword('password'.$numUsuario);
+                $usuario->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+
+                // Password
+                $passwordEnClaro = 'usuario'.$numUsuario;
+                $encoder = $this->container->get("security.encoder_factory")->getEncoder($usuario);
+                $passwordCodificado = $encoder->encodePassword($passwordEnClaro, $usuario->getSalt());
+                $usuario->setPassword($passwordCodificado);
+
+
                 $usuario->setDireccion("Calle Ipsum Lorem, 2\n".$ciudad->getNombre());
                 // El 60% de los usuarios permite email
                 $usuario->setPermiteEmail((rand(1, 1000) % 10) < 6);
