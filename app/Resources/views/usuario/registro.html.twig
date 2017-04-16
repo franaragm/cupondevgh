@@ -1,0 +1,21 @@
+{% extends 'frontend.html.twig' %}
+
+{% block pageregister 'active' %}
+{% block title 'Regístrate gratis como usuario' %}
+
+{% block maincontent %}
+    <div class="col-md-6 login col-centered">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Regístrate gratis como usuario</h2>
+            </div>
+        </div>
+
+        {{ form(formulario) }}
+
+    </div>
+{% endblock %}
+
+{% block sidebarcontent %}
+{% endblock %}

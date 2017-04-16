@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use AppBundle\Entity\Usuario;
 
 /**
  * @Route("/usuario")
@@ -66,5 +67,26 @@ class UsuarioController extends Controller
             'compras_usuario' => $compras_usuario,
             //'cercanas' => $cercanas,
         ));
+    }
+
+    /**
+     * @Route("/registro", name="usuario_registro")
+     *
+     * Muestra el formulario para que se registren los nuevos usuarios. Además
+     * se encarga de procesar la información y de guardar la información en la base de datos.
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
+     */
+    public function registroAction(Request $request)
+    {
+        $usuario = new Usuario();
+
+        $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+
+        return $this->render('usuario/registro.html.twig', array(
+            'formulario' => $formulario->createView())
+        );
     }
 }
