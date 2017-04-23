@@ -12,7 +12,112 @@
             </div>
         </div>
 
-        {{ form(formulario) }}
+        {{ form_start(formulario, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_errors(formulario) }}
+
+            <fieldset>
+                <legend>Datos personales</legend>
+
+                <div class="form-group">
+                    {{ form_label(formulario.nombre) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.nombre) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(formulario.apellidos) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.apellidos) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(formulario.fechaNacimiento) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.fechaNacimiento) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(formulario.dni) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.dni) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(formulario.direccion) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.direccion) }}
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Datos de acceso</legend>
+
+                <div class="form-group">
+                    {{ form_label(formulario.email) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.email) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(formulario.password.first) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.password.first) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(formulario.password.second) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.password.second) }}
+                    </div>
+                </div>
+
+            </fieldset>
+
+            <fieldset>
+                <legend>Datos económicos</legend>
+
+                <div class="form-group">
+                    {{ form_label(formulario.numero_tarjeta) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.numero_tarjeta) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    {{ form_label(formulario.ciudad) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(formulario.ciudad) }}
+                    </div>
+                </div>
+
+            </fieldset>
+
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            {{ form_widget(formulario.permiteEmail) }} Suscribirse a boletín de noticias
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    {{ form_widget(formulario.registrarme) }}
+                </div>
+            </div>
+
+        {{ form_end(formulario) }}
 
     </div>
 {% endblock %}
