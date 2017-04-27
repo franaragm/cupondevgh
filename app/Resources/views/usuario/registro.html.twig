@@ -4,7 +4,7 @@
 {% block title 'Regístrate gratis como usuario' %}
 
 {% block maincontent %}
-    <div class="col-md-6 login col-centered">
+    <div class="col-md-9 login">
 
         <div class="row">
             <div class="col-md-12">
@@ -22,6 +22,7 @@
                     {{ form_label(formulario.nombre) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.nombre) }}
+                        <p class="text-danger">{{ form_errors(formulario.nombre) }}</p>
                     </div>
                 </div>
 
@@ -29,6 +30,7 @@
                     {{ form_label(formulario.apellidos) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.apellidos) }}
+                        <p class="text-danger">{{ form_errors(formulario.apellidos) }}</p>
                     </div>
                 </div>
 
@@ -36,6 +38,8 @@
                     {{ form_label(formulario.fechaNacimiento) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.fechaNacimiento) }}
+                        <span id="helpBlock" class="help-block">Debes tener más de 18 años para registrarte como cliente.</span>
+                        <p class="text-danger">{{ form_errors(formulario.fechaNacimiento) }}</p>
                     </div>
                 </div>
 
@@ -43,6 +47,8 @@
                     {{ form_label(formulario.dni) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.dni) }}
+                        <span id="helpBlock" class="help-block">Escribe las 8 cifras y la letra sin dejar ningún espacio en blanco.</span>
+                        <p class="text-danger">{{ form_errors(formulario.dni) }}</p>
                     </div>
                 </div>
 
@@ -50,6 +56,7 @@
                     {{ form_label(formulario.direccion) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.direccion) }}
+                        <p class="text-danger">{{ form_errors(formulario.direccion) }}</p>
                     </div>
                 </div>
 
@@ -62,6 +69,7 @@
                     {{ form_label(formulario.email) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.email) }}
+                        <p class="text-danger">{{ form_errors(formulario.email) }}</p>
                     </div>
                 </div>
 
@@ -69,6 +77,7 @@
                     {{ form_label(formulario.password.first) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.password.first) }}
+                        <p class="text-danger">{{ form_errors(formulario.password.first) }}</p>
                     </div>
                 </div>
 
@@ -76,6 +85,8 @@
                     {{ form_label(formulario.password.second) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.password.second) }}
+                        <span id="helpBlock" class="help-block">Escribe dos veces la misma contraseña.</span>
+                        <p class="text-danger">{{ form_errors(formulario.password.second) }}</p>
                     </div>
                 </div>
 
@@ -88,6 +99,7 @@
                     {{ form_label(formulario.numero_tarjeta) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.numero_tarjeta) }}
+                        <p class="text-danger">{{ form_errors(formulario.numero_tarjeta) }}</p>
                     </div>
                 </div>
 
@@ -95,6 +107,8 @@
                     {{ form_label(formulario.ciudad) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.ciudad) }}
+                        <span id="helpBlock" class="help-block">Una vez registrado puedes comprar cualquier oferta de cualquier ciudad, pero la ciudad que elijas será tu opción preferente.</span>
+                        <p class="text-danger">{{ form_errors(formulario.ciudad) }}</p>
                     </div>
                 </div>
 
@@ -107,6 +121,7 @@
                         <label>
                             {{ form_widget(formulario.permiteEmail) }} Suscribirse a boletín de noticias
                         </label>
+                        <p class="text-danger">{{ form_errors(formulario.permiteEmail) }}</p>
                     </div>
                 </div>
             </div>
@@ -123,4 +138,5 @@
 {% endblock %}
 
 {% block sidebarcontent %}
+    {% include ':sidebar:_sidebar_faqs.html.twig' %}
 {% endblock %}

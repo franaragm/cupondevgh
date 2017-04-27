@@ -65,6 +65,15 @@
         {% block bannercupon %}{% endblock %}
     {% endif %}
 
+    {% for tipo, mensajes in app.session.flashbag.all() %}
+        {% for mensaje in mensajes %}
+            <div class="alert {{ tipo }} alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ mensaje }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <!-- Page Content -->
     <div class="container">
 

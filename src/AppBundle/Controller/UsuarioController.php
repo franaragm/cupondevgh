@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use AppBundle\Entity\Usuario;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * @Route("/usuario")
@@ -84,6 +85,38 @@ class UsuarioController extends Controller
         $usuario = new Usuario();
 
         $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+
+        $formulario->handleRequest($request);
+
+        if ($formulario->isSubmitted() && $formulario->isValid()) {
+
+            $usuario->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+
+            $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
+            $passwordCodificado = $encoder->encodePassword($usuario->getPassword(), $usuario->getSalt());
+            $usuario->setPassword($passwordCodificado);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($usuario);
+            $em->flush();
+
+            // loguear al nuevo usuario antes de redirigirle a la portada y mostrarle el mensaje flash
+            $token = new UsernamePasswordToken(
+                $usuario,
+                $usuario->getPassword(),
+                'frontend',
+                $usuario->getRoles()
+            );
+            $this->container->get('security.token_storage')->setToken($token);
+
+            $this->addFlash('alert-success', '¡Enhorabuena! Te has registrado correctamente en Cupon');
+
+            return $this->redirectToRoute('portada', array(
+                'ciudad' => $usuario->getCiudad()->getSlug()
+            ));
+
+        }
 
         return $this->render('usuario/registro.html.twig', array(
             'formulario' => $formulario->createView())
