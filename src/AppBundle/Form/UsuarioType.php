@@ -90,7 +90,7 @@ class UsuarioType extends AbstractType
                 'required' => 'required',
                 'years' => range(date('Y') - 18, date('Y') - 18 - 120),
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => ''
                 )
             ))
             ->add('dni', TextType::class, array(
@@ -101,7 +101,7 @@ class UsuarioType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-            ->add('numero_tarjeta', TextType::class, array(
+            ->add('numeroTarjeta', TextType::class, array(
                 'label' => 'Número de tarjeta de crédito',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'required' => 'required',

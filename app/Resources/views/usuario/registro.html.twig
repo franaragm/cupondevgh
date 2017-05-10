@@ -1,4 +1,5 @@
 {% extends 'frontend.html.twig' %}
+{% form_theme formulario 'form/form_errors.html.twig' %}
 
 {% block pageregister 'active' %}
 {% block title 'Regístrate gratis como usuario' %}
@@ -11,6 +12,7 @@
                 <h2>Regístrate gratis como usuario</h2>
             </div>
         </div>
+
 
         {{ form_start(formulario, {'attr': {'class': 'form-horizontal'}}) }}
             {{ form_errors(formulario) }}
@@ -77,10 +79,7 @@
                     {{ form_label(formulario.passwordEnClaro.first) }}
                     <div class="col-sm-10">
                         {{ form_widget(formulario.passwordEnClaro.first) }}
-                        {% for error in formulario.passwordEnClaro.first.vars.errors %}
-                            <p class="text-danger">{{ error.message }}</p>
-                        {% endfor %}
-
+                        <p class="text-danger">{{ form_errors(formulario.passwordEnClaro.first) }}</p>
                     </div>
                 </div>
 
@@ -99,10 +98,10 @@
                 <legend>Datos económicos</legend>
 
                 <div class="form-group">
-                    {{ form_label(formulario.numero_tarjeta) }}
+                    {{ form_label(formulario.numeroTarjeta) }}
                     <div class="col-sm-10">
-                        {{ form_widget(formulario.numero_tarjeta) }}
-                        <p class="text-danger">{{ form_errors(formulario.numero_tarjeta) }}</p>
+                        {{ form_widget(formulario.numeroTarjeta) }}
+                        <p class="text-danger">{{ form_errors(formulario.numeroTarjeta) }}</p>
                     </div>
                 </div>
 

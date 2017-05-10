@@ -85,30 +85,14 @@ class UsuarioController extends Controller
         $usuario = new Usuario();
 
         $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
-
         $formulario->handleRequest($request);
 
         if ($formulario->isSubmitted() && $formulario->isValid()) {
 
             $usuario->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
 
-            $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
-            $passwordCodificado = $encoder->encodePassword($usuario->getPasswordEnClaro(), $usuario->getSalt());
-            $usuario->setPassword($passwordCodificado);
-
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($usuario);
-            $em->flush();
-
-            // loguear al nuevo usuario antes de redirigirle a la portada y mostrarle el mensaje flash
-            $token = new UsernamePasswordToken(
-                $usuario,
-                $usuario->getPassword(),
-                'frontend',
-                $usuario->getRoles()
-            );
-            $this->container->get('security.token_storage')->setToken($token);
+            $this->get('app.manager.usuario_manager')->guardar($usuario);
+            $this->get('app.manager.usuario_manager')->loguear($usuario);
 
             $this->addFlash('alert-success', '¡Enhorabuena! Te has registrado correctamente en Cupon');
 

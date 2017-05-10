@@ -8,6 +8,10 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+    app.manager.usuario_manager:
+        class: AppBundle\Manager\UsuarioManager
+        arguments: ['@doctrine.orm.entity_manager', '@security.encoder_factory', '@security.token_storage']
+
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
