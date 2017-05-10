@@ -154,8 +154,9 @@ class Basico implements FixtureInterface, ContainerAwareInterface
 
                 // Password
                 $passwordEnClaro = 'usuario'.$numUsuario;
+                $usuario->setPasswordEnClaro($passwordEnClaro);
                 $encoder = $this->container->get("security.encoder_factory")->getEncoder($usuario);
-                $passwordCodificado = $encoder->encodePassword($passwordEnClaro, $usuario->getSalt());
+                $passwordCodificado = $encoder->encodePassword($usuario->getPasswordEnClaro(), $usuario->getSalt());
                 $usuario->setPassword($passwordCodificado);
 
 

@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use AppBundle\Util\Slugger;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsuarioRepository")
@@ -25,6 +26,7 @@ class Usuario implements UserInterface
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=100)
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -41,6 +43,15 @@ class Usuario implements UserInterface
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
+
+    /**
+     * No es columna de base de datos, solo variable para validar datos de formulario
+     * @var string
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 6, minMessage = "Este valor es demasiado corto. Debería tener {{ limit }} caracteres o más")
+     */
+    private $passwordEnClaro;
 
     /**
      * @var string
@@ -208,6 +219,22 @@ class Usuario implements UserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPasswordEnClaro()
+    {
+        return $this->passwordEnClaro;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPasswordEnClaro($password)
+    {
+        $this->passwordEnClaro = $password;
     }
 
     /**

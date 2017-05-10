@@ -51,7 +51,7 @@ class UsuarioType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-            ->add('password', RepeatedType::class, array(
+            ->add('passwordEnClaro', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'Las dos contraseñas deben coincidir',
                 'first_options' => array(

@@ -74,19 +74,22 @@
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(formulario.password.first) }}
+                    {{ form_label(formulario.passwordEnClaro.first) }}
                     <div class="col-sm-10">
-                        {{ form_widget(formulario.password.first) }}
-                        <p class="text-danger">{{ form_errors(formulario.password.first) }}</p>
+                        {{ form_widget(formulario.passwordEnClaro.first) }}
+                        {% for error in formulario.passwordEnClaro.first.vars.errors %}
+                            <p class="text-danger">{{ error.message }}</p>
+                        {% endfor %}
+
                     </div>
                 </div>
 
                 <div class="form-group">
-                    {{ form_label(formulario.password.second) }}
+                    {{ form_label(formulario.passwordEnClaro.second) }}
                     <div class="col-sm-10">
-                        {{ form_widget(formulario.password.second) }}
+                        {{ form_widget(formulario.passwordEnClaro.second) }}
                         <span id="helpBlock" class="help-block">Escribe dos veces la misma contraseña.</span>
-                        <p class="text-danger">{{ form_errors(formulario.password.second) }}</p>
+                        <p class="text-danger">{{ form_errors(formulario.passwordEnClaro.second) }}</p>
                     </div>
                 </div>
 

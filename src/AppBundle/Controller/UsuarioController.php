@@ -93,7 +93,7 @@ class UsuarioController extends Controller
             $usuario->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
 
             $encoder = $this->get('security.encoder_factory')->getEncoder($usuario);
-            $passwordCodificado = $encoder->encodePassword($usuario->getPassword(), $usuario->getSalt());
+            $passwordCodificado = $encoder->encodePassword($usuario->getPasswordEnClaro(), $usuario->getSalt());
             $usuario->setPassword($passwordCodificado);
 
             $em = $this->getDoctrine()->getManager();
