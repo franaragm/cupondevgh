@@ -136,6 +136,9 @@ class UsuarioType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Usuario',
+            'error_mapping' => array(
+                'mayorDeEdad' => 'fechaNacimiento'
+            ),
         ));
 
     }
