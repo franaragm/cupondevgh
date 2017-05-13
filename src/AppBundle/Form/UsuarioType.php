@@ -51,32 +51,12 @@ class UsuarioType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-            ->add('passwordEnClaro', RepeatedType::class, array(
-                'type' => PasswordType::class,
-                'invalid_message' => 'Las dos contraseñas deben coincidir',
-                'first_options' => array(
-                    'label' => 'Contraseña',
-                    'label_attr' => array('class' => 'col-sm-2 control-label'),
-                    'required' => 'required',
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ),
-                'second_options' => array(
-                    'label' => 'Repite Contraseña',
-                    'label_attr' => array('class' => 'col-sm-2 control-label'),
-                    'required' => 'required',
-                    'attr' => array(
-                        'class' => 'form-control'
-                    )
-                ),
-            ))
             ->add('direccion', TextType::class, array(
                 'label' => 'Dirección',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'required' => 'required',
                 'attr' => array(
-                    'class' => 'form-location form-control'
+                    'class' => 'form-control'
                 )
             ))
             ->add('permiteEmail', CheckboxType::class, array(
@@ -122,20 +102,74 @@ class UsuarioType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 )
-            ))
-            ->add('registrarme', SubmitType::class, array(
-                'label' => 'Registrarme',
-                "attr" => array(
-                    "class" => "form-submit btn btn-success"
-                )
             ));
+
+        if ('crear_usuario' === $options['accion']) {
+            $builder
+                ->add('registrarme', SubmitType::class, array(
+                    'label' => 'Registrarme',
+                    "attr" => array(
+                        "class" => "form-submit btn btn-success"
+                    )
+                ))
+                ->add('passwordEnClaro', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'Las dos contraseñas deben coincidir',
+                    'required' => 'required',
+                    'first_options' => array(
+                        'label' => 'Contraseña',
+                        'label_attr' => array('class' => 'col-sm-2 control-label'),
+                        'attr' => array(
+                            'class' => 'form-control'
+                        )
+                    ),
+                    'second_options' => array(
+                        'label' => 'Repite Contraseña',
+                        'label_attr' => array('class' => 'col-sm-2 control-label'),
+                        'attr' => array(
+                            'class' => 'form-control'
+                        )
+                    ),
+                ));
+
+        } elseif ('modificar_perfil' === $options['accion']) {
+            $builder
+                ->add('guardar', SubmitType::class, array(
+                    'label' => 'Guardar Cambios',
+                    "attr" => array(
+                        "class" => "form-submit btn btn-success"
+                    )
+                ))
+                ->add('passwordEnClaro', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'invalid_message' => 'Las dos contraseñas deben coincidir',
+                    'required' => false,
+                    'first_options' => array(
+                        'label' => 'Contraseña',
+                        'label_attr' => array('class' => 'col-sm-2 control-label'),
+                        'attr' => array(
+                            'class' => 'form-control'
+                        )
+                    ),
+                    'second_options' => array(
+                        'label' => 'Repite Contraseña',
+                        'label_attr' => array('class' => 'col-sm-2 control-label'),
+                        'attr' => array(
+                            'class' => 'form-control'
+                        )
+                    ),
+                ));
+
+        }
 
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
+            'accion' => 'modificar_perfil',
             'data_class' => 'AppBundle\Entity\Usuario',
+            'validation_groups' => array('Default'),
             'error_mapping' => array(
                 'mayorDeEdad' => 'fechaNacimiento'
             ),

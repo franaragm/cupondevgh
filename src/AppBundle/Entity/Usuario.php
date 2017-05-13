@@ -54,7 +54,7 @@ class Usuario implements UserInterface
      * No es columna de base de datos, solo variable para validar datos de formulario
      * @var string
      *
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"registro"})
      * @Assert\Length(min = 6)
      */
     private $passwordEnClaro;
@@ -65,13 +65,6 @@ class Usuario implements UserInterface
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="salt", type="string", length=255)
-     */
-    private $salt;
 
     /**
      * @var string
@@ -258,20 +251,6 @@ class Usuario implements UserInterface
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     *
-     * @return Usuario
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
     }
 
     /**
@@ -463,7 +442,7 @@ class Usuario implements UserInterface
      */
     public function eraseCredentials()
     {
-        $this->password = null;
+        $this->passwordEnClaro = null;
     }
 
     /**
@@ -472,7 +451,6 @@ class Usuario implements UserInterface
      */
     public function getSalt()
     {
-        return null;
     }
 
     /**

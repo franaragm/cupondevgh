@@ -84,13 +84,13 @@ class UsuarioController extends Controller
     {
         $usuario = new Usuario();
 
-        $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
+        $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario, array(
+            'accion' => 'crear_usuario',
+            'validation_groups' => array('Default', 'registro'),
+        ));
         $formulario->handleRequest($request);
 
         if ($formulario->isSubmitted() && $formulario->isValid()) {
-
-            $usuario->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
-
             $this->get('app.manager.usuario_manager')->guardar($usuario);
             $this->get('app.manager.usuario_manager')->loguear($usuario);
 
@@ -105,5 +105,34 @@ class UsuarioController extends Controller
         return $this->render('usuario/registro.html.twig', array(
             'formulario' => $formulario->createView())
         );
+    }
+
+    /**
+     * @Route("/perfil", name="usuario_perfil")
+     *
+     * Muestra el formulario con toda la información del perfil del usuario logueado.
+     * También permite modificar la información y guarda los cambios en la base de datos.
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
+     */
+    public function perfilAction(Request $request)
+    {
+        $usuario = $this->getUser();
+        $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario,
+            array('accion' => 'modificar_perfil')
+        );
+        $formulario->handleRequest($request);
+
+        if ($formulario->isSubmitted() && $formulario->isValid()) {
+            $this->get('app.manager.usuario_manager')->guardar($usuario);
+            $this->addFlash('alert-success', 'Los datos de tu perfil se han actualizado correctamente');
+            return $this->redirectToRoute('usuario_perfil');
+        }
+        return $this->render('usuario/perfil.html.twig', array(
+            'usuario' => $usuario,
+            'formulario' => $formulario->createView(),
+        ));
     }
 }

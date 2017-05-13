@@ -150,7 +150,7 @@ class Basico implements FixtureInterface, ContainerAwareInterface
                 $usuario->setNombre('Usuario #'.$numUsuario);
                 $usuario->setApellidos('Apellido1 Apellido2');
                 $usuario->setEmail('usuario'.$numUsuario.'@localhost');
-                $usuario->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+                //$usuario->setSalt(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
 
                 // Password
                 $passwordEnClaro = 'usuario'.$numUsuario;
