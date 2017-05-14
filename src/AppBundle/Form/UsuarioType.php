@@ -169,7 +169,8 @@ class UsuarioType extends AbstractType
         $resolver->setDefaults(array(
             'accion' => 'modificar_perfil',
             'data_class' => 'AppBundle\Entity\Usuario',
-            'validation_groups' => array('Default'),
+            'validation_groups' => array('Default'), // el nombre del grupo por defecto de validacion es Default, no default
+            // indicar para la validacion de tipo adhoc el lugar de los mensajes de error
             'error_mapping' => array(
                 'mayorDeEdad' => 'fechaNacimiento'
             ),

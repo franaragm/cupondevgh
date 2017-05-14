@@ -86,6 +86,7 @@ class UsuarioController extends Controller
 
         $formulario = $this->createForm('AppBundle\Form\UsuarioType', $usuario, array(
             'accion' => 'crear_usuario',
+            // grupos de verificacion que esta incluido este formulario
             'validation_groups' => array('Default', 'registro'),
         ));
         $formulario->handleRequest($request);
@@ -99,7 +100,6 @@ class UsuarioController extends Controller
             return $this->redirectToRoute('portada', array(
                 'ciudad' => $usuario->getCiudad()->getSlug()
             ));
-
         }
 
         return $this->render('usuario/registro.html.twig', array(
