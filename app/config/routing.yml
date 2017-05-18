@@ -1,7 +1,11 @@
 app:
     resource: '@AppBundle/Controller/'
     type:   annotation
-    prefix:   /
+    prefix:  /{_locale}
+    requirements:
+        _locale: en|es
+    defaults:
+        _locale: '%locale%'
 
 # Ruta de la portada básica del sitio (sin ningún parámetro)
 # esta ruta es opcional, ya que la aplicación puede funcionar bien
