@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Request;
 
 class CiudadController extends Controller
 {
@@ -49,15 +50,15 @@ class CiudadController extends Controller
     }
 
     /**
-     * @Route("/{ciudad}/recientes", name="ciudad_recientes")
+     * @Route( "/{ciudad}/recientes", name="ciudad_recientes")
      *
      * Muestra las ofertas más recientes de la ciudad indicada.
      *
+     * @param Request $request
      * @param string $ciudad El slug de la ciudad
      * @return Response
-     * @throws NotFoundHttpException
      */
-    public function recientesAction($ciudad)
+    public function recientesAction(Request $request, $ciudad)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -70,7 +71,9 @@ class CiudadController extends Controller
         $ciudades_cercanas = $em->getRepository('AppBundle:Ciudad')->findCercanas($ciudad->getId());
         $ofertas_ciudad = $em->getRepository('AppBundle:Oferta')->findRecientes($ciudad->getId());
 
-        return $this->render('ciudad/recientes.html.twig', array(
+        $formato = $request->getRequestFormat();
+
+        return $this->render('ciudad/recientes.'.$formato.'.twig', array(
             'ciudad' => $ciudad,
             'ciudades_cercanas' => $ciudades_cercanas,
             'ofertas_ciudad' => $ofertas_ciudad,
