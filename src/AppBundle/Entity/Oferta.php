@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Util\Slugger;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OfertaRepository")
@@ -24,6 +26,8 @@ class Oferta
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -31,6 +35,8 @@ class Oferta
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $slug;
 
@@ -38,6 +44,9 @@ class Oferta
      * @var string
      *
      * @ORM\Column(name="descripcion", type="text")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 30)
      */
     private $descripcion;
 
@@ -59,6 +68,8 @@ class Oferta
      * @var string
      *
      * @ORM\Column(name="precio", type="decimal")
+     *
+     * @Assert\Range(min = 0)
      */
     private $precio;
 
@@ -73,6 +84,8 @@ class Oferta
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_publicacion", type="datetime")
+     *
+     * @Assert\DateTime
      */
     private $fechaPublicacion;
 
@@ -80,6 +93,8 @@ class Oferta
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_expiracion", type="datetime")
+     *
+     * @Assert\DateTime
      */
     private $fechaExpiracion;
 
@@ -94,6 +109,9 @@ class Oferta
      * @var integer
      *
      * @ORM\Column(name="umbral", type="integer")
+     *
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 0)
      */
     private $umbral;
 
@@ -101,6 +119,8 @@ class Oferta
      * @var boolean
      *
      * @ORM\Column(name="revisada", type="boolean")
+     *
+     * @Assert\Type(type="bool")
      */
     private $revisada;
 
