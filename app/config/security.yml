@@ -8,10 +8,24 @@ security:
         usuarios:
             entity: { class: AppBundle\Entity\Usuario, property: email }
 
+        tiendas:
+            entity: { class: AppBundle\Entity\Tienda, property: login }
+
         in_memory:
             memory: ~
 
     firewalls:
+
+        # Firewall utilizado en la parte de gestion para tiendas o extranet
+        extranet:
+            pattern: ^/extranet
+            provider: tiendas
+            anonymous: ~
+            form_login:
+                login_path: /extranet/login
+                check_path: /extranet/login_check
+            logout:
+                path: extranet_logout
 
         # Firewall global utilizado en la parte pública o frontend
         frontend:
@@ -32,6 +46,8 @@ security:
     access_control:
         - { path: ^/(es|en)/usuario/(login|registro), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(es|en)/usuario/*, roles: ROLE_USUARIO }
+        - { path: ^/extranet/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/extranet/*, roles: ROLE_TIENDA }
 
     encoders:
 
@@ -39,6 +55,10 @@ security:
         # de prueba no sea demasiado lenta (se generan cientos de usuarios). En
         # una aplicación real, es mejor no cambiar el valor por defecto (que es 12)
         AppBundle\Entity\Usuario:
+            algorithm: bcrypt
+            cost: 4
+
+        AppBundle\Entity\Tienda:
             algorithm: bcrypt
             cost: 4
 
