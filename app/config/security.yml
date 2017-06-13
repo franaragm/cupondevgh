@@ -69,5 +69,7 @@ security:
             cost: 4
 
     role_hierarchy:
-
         ROLE_ADMIN: ROLE_USUARIO
+
+    access_decision_manager:
+        strategy: unanimous
