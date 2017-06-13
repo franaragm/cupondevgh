@@ -6,14 +6,16 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 
 class LoginListener
 {
-    private $router, $ciudad = null;
+    private $checker, $router, $ciudad = null;
 
-    public function __construct(Router $router)
+    public function __construct(AuthorizationChecker $checker, Router $router)
     {
+        $this->checker = $checker;
         $this->router = $router;
     }
 
@@ -41,10 +43,16 @@ class LoginListener
             return;
         }
 
-        $urlPortada = $this->router->generate('portada', array(
-            'ciudad' => $this->ciudad
-        ));
+        if($this->checker->isGranted('ROLE_TIENDA')) {
+            $urlPortada = $this->router->generate('extranet_portada');
+        } else {
+            $urlPortada = $this->router->generate('portada', array(
+                'ciudad' => $this->ciudad
+            ));
+        }
+
         $event->setResponse(new RedirectResponse($urlPortada));
+        $event->stopPropagation();
     }
 
 }

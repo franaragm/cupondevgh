@@ -10,7 +10,7 @@ app:
 _extranet:
     resource: '@AppBundle/Controller/ExtranetController.php'
     type:     annotation
-    prefix:   /extranet
+    prefix:   /extranet/
 
 # Ruta de la portada básica del sitio (sin ningún parámetro)
 # esta ruta es opcional, ya que la aplicación puede funcionar bien

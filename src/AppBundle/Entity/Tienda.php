@@ -4,12 +4,13 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Util\Slugger;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TiendaRepository")
  * @ORM\Table(name="CuponDev_Tienda")
  */
-class Tienda
+class Tienda implements UserInterface
 {
     /**
      * @ORM\Id
@@ -33,15 +34,12 @@ class Tienda
      */
     protected $login;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    protected $password;
+    private $passwordEnClaro;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    protected $salt;
+    protected $password;
 
     /**
      * @ORM\Column(type="text")
@@ -147,6 +145,25 @@ class Tienda
     }
 
     /**
+     * @param $password
+     * @return $this
+     */
+    public function setPasswordEnClaro($password)
+    {
+        $this->passwordEnClaro = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPasswordEnClaro()
+    {
+        return $this->passwordEnClaro;
+    }
+
+    /**
      * Set password
      *
      * @param string $password
@@ -168,30 +185,6 @@ class Tienda
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * Set salt
-     *
-     * @param string $salt
-     *
-     * @return Tienda
-     */
-    public function setSalt($salt)
-    {
-        $this->salt = $salt;
-
-        return $this;
-    }
-
-    /**
-     * Get salt
-     *
-     * @return string
-     */
-    public function getSalt()
-    {
-        return $this->salt;
     }
 
     /**
@@ -265,4 +258,38 @@ class Tienda
     {
         return $this->ciudad;
     }
+
+    /**
+     * Método requerido por la interfaz UserInterface.
+     *
+     * @return array
+     */
+    public function getRoles()
+    {
+        return array('ROLE_TIENDA');
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface.
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->getLogin();
+    }
+
+    /**
+     * Método requerido por la interfaz UserInterface.
+     */
+    public function eraseCredentials()
+    {
+        $this->passwordEnClaro = null;
+    }
+    /**
+     * Este método es requerido por la interfaz UserInterface, pero esta clase
+     * no necesita implementarlo porque se usa 'bcrypt' para codificar las contraseñas.
+     */
+    public function getSalt() { }
+
 }

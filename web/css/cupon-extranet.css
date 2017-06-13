@@ -84,9 +84,9 @@ a:hover {
 /*-------------- LOGIN PAGE ---------------*/
 .btn-success,
 .btn-success:hover {
-	background-color: #FF3385;
+	background-color: #C06;
 	color: #fff;
-	border-color: #FF3385;
+	border-color: #C06;
 }
 
 .panel-default>.panel-heading {

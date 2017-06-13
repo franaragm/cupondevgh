@@ -61,8 +61,14 @@ class Basico implements FixtureInterface, ContainerAwareInterface
                 $tienda = new Tienda();
                 $tienda->setNombre('Tienda #'.$numTienda);
                 $tienda->setLogin('tienda'.$numTienda);
-                $tienda->setPassword('password'.$numTienda);
-                $tienda->setSalt(md5(time()));
+
+                // Password
+                $passwordEnClaro = 'tienda'.$numTienda;
+                $tienda->setPasswordEnClaro($passwordEnClaro);
+                $encoder = $this->container->get("security.encoder_factory")->getEncoder($tienda);
+                $passwordCodificado = $encoder->encodePassword($tienda->getPasswordEnClaro(), $tienda->getSalt());
+                $tienda->setPassword($passwordCodificado);
+
                 $tienda->setDescripcion(
                     "Lorem ipsum dolor sit amet, consectetur adipisicing elit,"
                     ."sed do eiusmod tempor incididunt ut labore et dolore magna"

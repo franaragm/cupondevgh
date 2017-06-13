@@ -18,14 +18,18 @@ security:
 
         # Firewall utilizado en la parte de gestion para tiendas o extranet
         extranet:
-            pattern: ^/extranet
+            pattern: ^/extranet/*
             provider: tiendas
             anonymous: ~
             form_login:
-                login_path: /extranet/login
-                check_path: /extranet/login_check
+                login_path: extranet_login
+                check_path: extranet_login_check
+            remember_me:
+                secret:     cupon1234
+                lifetime:   604800  # 604.800 = 3.600 * 24 * 7 = 1 semana
             logout:
                 path: extranet_logout
+                target: /extranet
 
         # Firewall global utilizado en la parte pública o frontend
         frontend:
@@ -34,7 +38,9 @@ security:
             form_login:
                 login_path: usuario_login
                 check_path: usuario_login_check
-                remember_me: true
+            remember_me:
+                secret:     cupon1234
+                lifetime:   604800  # 604.800 = 3.600 * 24 * 7 = 1 semana
             logout:
                 path: usuario_logout
 

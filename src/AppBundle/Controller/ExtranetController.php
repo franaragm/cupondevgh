@@ -8,15 +8,37 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ExtranetController extends Controller
 {
     /**
-     * @Route("/login", name="login_extranet")
+     * @Route("/login", name="extranet_login")
      */
-    public function indexAction()
+    public function loginAction()
     {
-        return $this->render(':extranet:login.html.twig');
+        $authUtils = $this->get('security.authentication_utils');
+
+        return $this->render('extranet/login.html.twig', array(
+            'last_username' => $authUtils->getLastUsername(),
+            'error' => $authUtils->getLastAuthenticationError(),
+        ));
+
     }
 
     /**
-     * @Route("/dashboard", name="extranet_portada")
+     * @Route("/login_check", name="extranet_login_check")
+     */
+    public function loginCheckAction()
+    {
+        // el "login check" lo hace Symfony automáticamente
+    }
+
+    /**
+     * @Route("/logout", name="extranet_logout")
+     */
+    public function logoutAction()
+    {
+        // el logout lo hace Symfony automáticamente
+    }
+
+    /**
+     * @Route("/", name="extranet_portada")
      */
     public function portadaAction()
     {
