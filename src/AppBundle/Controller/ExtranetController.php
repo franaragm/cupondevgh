@@ -42,7 +42,14 @@ class ExtranetController extends Controller
      */
     public function portadaAction()
     {
-        return $this->render(':extranet:dashboard.html.twig');
+        $em = $this->getDoctrine()->getManager();
+
+        $tienda = $this->getUser();
+        $ofertas = $em->getRepository('AppBundle:Tienda')->findOfertasRecientes($tienda->getId());
+
+        return $this->render(':extranet:dashboard.html.twig', array(
+            'ofertas_tienda' => $ofertas
+        ));
     }
 
     /**
