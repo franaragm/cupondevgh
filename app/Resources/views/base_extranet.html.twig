@@ -16,6 +16,12 @@
     <!-- MetisMenu CSS -->
     <link href="{{ asset('css/metisMenu.min.css') }}" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="{{ asset('css/dataTables.bootstrap.css') }}" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="{{ asset('css/dataTables.responsive.css') }}" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
 
@@ -38,6 +44,7 @@
 
 {% block body %}{% endblock %}
 
+{% block javascripts %}
 <!-- jQuery -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 
@@ -46,9 +53,7 @@
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{{ asset('js/metisMenu.min.js') }}"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="{{ asset('js/sb-admin-2.js') }}"></script>
+{% endblock %}
 
 </body>
 

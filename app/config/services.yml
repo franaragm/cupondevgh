@@ -26,6 +26,7 @@ services:
         class: AppBundle\Security\CreadorOfertaVoter
         tags:
             - { name: security.voter }
+        public: false
 
     app.login_listener:
         class: AppBundle\Listener\LoginListener

@@ -1,5 +1,15 @@
 {% extends 'base_extranet.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/sb-admin-2.js') }}"></script>
+    <!-- DataTables JavaScript -->
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+    <!-- Custom JavaScript -->
+    <script src="{{ asset('js/dashboard-extranet.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <div id="wrapper">
 
@@ -65,6 +75,17 @@
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
+
+                    {% for tipo, mensajes in app.session.flashbag.all() %}
+                        {% for mensaje in mensajes %}
+                            <div class="col-lg-12">
+                                <div class="alert-extranet alert {{ tipo }} alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    {{ mensaje }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
 
                     <!-- Main Content -->
                     {% block maincontent %}{% endblock %}

@@ -80,6 +80,10 @@ a:hover {
 	background-color: #C06
 }
 
+.alert-extranet {
+	margin-top: 20px;
+}
+
 /*-------------- LOGIN PAGE ---------------*/
 .btn-success,
 .btn-success:hover {

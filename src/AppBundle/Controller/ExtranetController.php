@@ -55,7 +55,7 @@ class ExtranetController extends Controller
     /**
      * @Route("/oferta/ventas/{id}", name="extranet_oferta_ventas")
      *
-     * Muestra las ventas registradas para la oferta indicada.
+     * Muestra las ventas registradas para la oferta indicada y deniega acceso a ver ofertas de otras tiendas.
      *
      * @param int $id id de la Oferta
      *
@@ -64,10 +64,19 @@ class ExtranetController extends Controller
     public function ofertaVentasAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $oferta = $em->getRepository('AppBundle:Oferta')->findOneById($id);
         $ventas = $em->getRepository('AppBundle:Oferta')->findVentasByOferta($id);
 
+        $authChecker = $this->get('security.authorization_checker');
+
+        if (!$authChecker->isGranted('view', $oferta)) {
+            $this->addFlash('alert-danger', 'No puede acceder a la información de una oferta de otra tienda!');
+
+            return $this->redirectToRoute('extranet_portada');
+        }
+
         return $this->render('extranet/ventas.html.twig', array(
-            'oferta' => $ventas[0]->getOferta(),
+            'oferta' => $oferta,
             'ventas' => $ventas,
         ));
     }
