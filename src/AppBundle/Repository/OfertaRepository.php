@@ -114,4 +114,24 @@ class OfertaRepository extends EntityRepository
         return $consulta->getResult();
     }
 
+    /**
+     * Encuentra todas las ventas de la oferta indicada.
+     *
+     * @param int $oferta El id de la oferta
+     *
+     * @return array
+     */
+    public function findVentasByOferta($oferta)
+    {
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+            SELECT v, o, u
+            FROM AppBundle:Venta v JOIN v.oferta o JOIN v.usuario u
+            WHERE o.id = :id
+            ORDER BY v.fecha DESC
+        ');
+        $consulta->setParameter('id', $oferta);
+        return $consulta->getResult();
+    }
+
 }

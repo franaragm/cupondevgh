@@ -54,10 +54,22 @@ class ExtranetController extends Controller
 
     /**
      * @Route("/oferta/ventas/{id}", name="extranet_oferta_ventas")
+     *
+     * Muestra las ventas registradas para la oferta indicada.
+     *
+     * @param int $id id de la Oferta
+     *
+     * @return Response
      */
-    public function ofertaVentasAction()
+    public function ofertaVentasAction($id)
     {
-        return $this->render(':extranet:dashboard.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $ventas = $em->getRepository('AppBundle:Oferta')->findVentasByOferta($id);
+
+        return $this->render('extranet/ventas.html.twig', array(
+            'oferta' => $ventas[0]->getOferta(),
+            'ventas' => $ventas,
+        ));
     }
 
     /**
