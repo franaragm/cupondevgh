@@ -1,0 +1,108 @@
+{% extends 'extranet.html.twig' %}
+{# se incluye la plantilla que renderiza los errores de formulario con un aspecto personalizado #}
+{% form_theme formulario 'form/form_errors.html.twig' %}
+
+{% block title %}
+    Perfil de {{ app.user.nombre }}
+{% endblock %}
+
+{% block maincontent %}
+    <div class="col-lg-12">
+        <h1 class="page-header">Mis datos</h1>
+    </div>
+
+    <div class="col-md-12 info-dashboard-tienda">
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ block('title') }}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+
+                {{ form_start(formulario, {'attr': {'class': 'form-horizontal'}}) }}
+                {{ form_errors(formulario) }}
+
+                <fieldset>
+                    <legend>Datos de la tienda</legend>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.nombre) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.nombre) }}
+                            <p class="text-danger">{{ form_errors(formulario.nombre) }}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.direccion) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.direccion) }}
+                            <p class="text-danger">{{ form_errors(formulario.direccion) }}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.ciudad) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.ciudad) }}
+                            <p class="text-danger">{{ form_errors(formulario.ciudad) }}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.descripcion) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.descripcion) }}
+                            <p class="text-danger">{{ form_errors(formulario.descripcion) }}</p>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <fieldset>
+                    <legend>Datos de acceso</legend>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.login) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.login) }}
+                            <p class="text-danger">{{ form_errors(formulario.login) }}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.passwordEnClaro.first) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.passwordEnClaro.first) }}
+                            <p class="text-danger">{{ form_errors(formulario.passwordEnClaro.first) }}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.passwordEnClaro.second) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.passwordEnClaro.second) }}
+                            <span id="helpBlock" class="help-block">Si quieres cambiar la contraseña, escríbela dos veces. Si no quieres cambiarla, deja su valor vacío.</span>
+                            <p class="text-danger">{{ form_errors(formulario.passwordEnClaro.second) }}</p>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        {{ form_widget(formulario.guardar) }}
+                    </div>
+                </div>
+
+                {{ form_end(formulario) }}
+
+            </div>
+        </div>
+
+        </hr>
+    </div>
+{% endblock %}

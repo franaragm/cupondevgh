@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class ExtranetController extends Controller
 {
@@ -99,9 +100,31 @@ class ExtranetController extends Controller
 
     /**
      * @Route("/perfil", name="extranet_perfil")
+     *
+     * Muestra el formulario para editar los datos del perfil de la tienda que está
+     * logueada en la aplicación. También se encarga de procesar la información y
+     * guardar las modificaciones en la base de datos a través de un servicio creado
+     *
+     * @param Request $request
+     *
+     * @return RedirectResponse|Response
      */
-    public function perfilAction()
+    public function perfilAction(Request $request)
     {
-        return $this->render(':extranet:dashboard.html.twig');
+        $tienda = $this->getUser();
+        $formulario = $this->createForm('AppBundle\Form\TiendaType', $tienda);
+
+        $formulario->handleRequest($request);
+
+        if ($formulario->isValid()) {
+            $this->get('app.manager.tienda_manager')->guardar($tienda);
+            $this->addFlash('alert-success', 'Los datos de tu perfil se han actualizado correctamente');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        return $this->render(':extranet:perfil.html.twig', array(
+            'tienda' => $tienda,
+            'formulario' => $formulario->createView(),
+        ));
     }
 }
