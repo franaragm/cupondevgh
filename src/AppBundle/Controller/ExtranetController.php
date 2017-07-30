@@ -2,9 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Oferta;
 
 class ExtranetController extends Controller
 {
@@ -84,10 +85,34 @@ class ExtranetController extends Controller
 
     /**
      * @Route("/oferta/nueva", name="extranet_oferta_nueva")
+     *
+     * Muestra el formulario para crear una nueva oferta y se encarga del
+     * procesamiento de la información recibida y la creación de las nuevas
+     * entidades de tipo Oferta.
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function ofertaNuevaAction()
+    public function ofertaNuevaAction(Request $request)
     {
-        return $this->render(':extranet:dashboard.html.twig');
+        $tienda = $this->get('security.token_storage')->getToken()->getUser();
+
+        $oferta = Oferta::crearParaTienda($tienda);
+        $formulario = $this->createForm('AppBundle\Form\OfertaType', $oferta, array(
+            'accion' => 'crear_oferta'
+        ));
+        $formulario->handleRequest($request);
+
+        if ($formulario->isValid()) {
+            $this->get('app.manager.oferta_manager')->guardar($oferta);
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        return $this->render(':extranet:oferta.html.twig', array(
+            'accion' => 'crear',
+            'formulario' => $formulario->createView(),
+        ));
     }
 
     /**

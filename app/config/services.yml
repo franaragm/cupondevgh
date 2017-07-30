@@ -16,6 +16,10 @@ services:
         class: AppBundle\Manager\TiendaManager
         arguments: ['@doctrine.orm.entity_manager', '@security.encoder_factory']
 
+    app.manager.oferta_manager:
+        class: AppBundle\Manager\OfertaManager
+        arguments: ['@doctrine.orm.entity_manager']
+
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:

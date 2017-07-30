@@ -4,7 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Util\Slugger;
-use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -60,14 +60,27 @@ class Oferta
     /**
      * @var string
      *
-     * @ORM\Column(name="ruta_foto", type="string", length=255)
+     * @ORM\Column(name="oferta_foto", type="string", length=255)
      */
-    private $rutaFoto;
+    private $ofertaFoto;
+
+
+    /**
+     * @Assert\Image(
+     *     maxSize = "500k",
+     *     mimeTypes = {
+     *          "image/png",
+     *          "image/jpeg",
+     *          "image/jpg"
+     *      }
+     * )
+     */
+    private $fotoTemp;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="precio", type="decimal")
+     * @ORM\Column(name="precio", type="decimal", scale=2)
      *
      * @Assert\Range(min = 0)
      */
@@ -76,14 +89,14 @@ class Oferta
     /**
      * @var string
      *
-     * @ORM\Column(name="descuento", type="decimal")
+     * @ORM\Column(name="descuento", type="decimal", scale=2)
      */
     private $descuento;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_publicacion", type="datetime")
+     * @ORM\Column(name="fecha_publicacion", type="datetime", nullable=true)
      *
      * @Assert\DateTime
      */
@@ -92,11 +105,20 @@ class Oferta
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="fecha_expiracion", type="datetime")
+     * @ORM\Column(name="fecha_expiracion", type="datetime", nullable=true)
      *
      * @Assert\DateTime
      */
     private $fechaExpiracion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_actualizacion", type="datetime", nullable=true)
+     *
+     * @Assert\DateTime
+     */
+    private $fechaActualizacion;
 
     /**
      * @var integer
@@ -137,6 +159,30 @@ class Oferta
     public function __toString()
     {
         return $this->getNombre();
+    }
+
+    public function __construct()
+    {
+        $this->compras = 0;
+        $this->revisada = false;
+        $this->fechaActualizacion = new \Datetime();
+    }
+
+    /**
+     * Este método estático actúa como "constructor con nombre" y simplifica el
+     * código de la aplicación ya que rellena los campos de la oferta que no
+     * puede rellenar la tienda que ha creado la oferta.
+     *
+     * @param Tienda $tienda
+     *
+     * @return Oferta
+     */
+    public static function crearParaTienda(Tienda $tienda)
+    {
+        $oferta = new self();
+        $oferta->setTienda($tienda);
+        $oferta->setCiudad($tienda->getCiudad());
+        return $oferta;
     }
 
     /**
@@ -247,27 +293,27 @@ class Oferta
     }
 
     /**
-     * Set rutaFoto
+     * Set ofertaFoto
      *
-     * @param string $rutaFoto
+     * @param string $ofertaFoto
      *
      * @return Oferta
      */
-    public function setRutaFoto($rutaFoto)
+    public function setOfertaFoto($ofertaFoto)
     {
-        $this->rutaFoto = $rutaFoto;
+        $this->ofertaFoto = $ofertaFoto;
 
         return $this;
     }
 
     /**
-     * Get rutaFoto
+     * Get ofertaFoto
      *
      * @return string
      */
-    public function getRutaFoto()
+    public function getOfertaFoto()
     {
-        return $this->rutaFoto;
+        return $this->ofertaFoto;
     }
 
     /**
@@ -364,6 +410,26 @@ class Oferta
     public function getFechaExpiracion()
     {
         return $this->fechaExpiracion;
+    }
+
+    /**
+     * @param \DateTime $fechaActualizacion
+     *
+     * @return Oferta
+     */
+    public function setFechaActualizacion($fechaActualizacion)
+    {
+        $this->fechaActualizacion = $fechaActualizacion;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFechaActualizacion()
+    {
+        return $this->fechaActualizacion;
     }
 
     /**
@@ -482,6 +548,50 @@ class Oferta
     public function getTienda()
     {
         return $this->tienda;
+    }
+
+    /**
+     * @Assert\IsTrue(message = "La fecha de expiración debe ser posterior a la fecha de publicación")
+     */
+    public function isFechaValida()
+    {
+        if (null === $this->fechaPublicacion || null === $this->fechaExpiracion) {
+            return true;
+        }
+        return $this->fechaExpiracion > $this->fechaPublicacion;
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFotoTemp()
+    {
+        return $this->fotoTemp;
+    }
+
+    /**
+     * @param UploadedFile $foto
+     */
+    public function setFotoTemp(UploadedFile $foto = null)
+    {
+        $this->fotoTemp = $foto;
+
+        // para que el "listener" de Doctrine guarde bien los cambios, al menos
+        // una propiedad debe cambiar su valor (además de la propiedad de la foto)
+        if (null !== $foto) {
+            $this->fechaActualizacion = new \Datetime('now');
+        }
+    }
+
+    public function subirFoto($directorioDestino)
+    {
+        if (null === $this->fotoTemp) {
+            return;
+        }
+
+        $nombreArchivoFoto = uniqid('cupon-').'-foto1.jpg';
+        $this->fotoTemp->move($directorioDestino, $nombreArchivoFoto);
+        $this->setOfertaFoto($nombreArchivoFoto);
     }
 }
 
