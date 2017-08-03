@@ -53,27 +53,29 @@ class OfertaType extends AbstractType
                 'label' => 'Imagen',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'attr' => array(
-                    'class' => 'form-control'
+                    'class' => ''
                 )
             ))
             ->add('precio', MoneyType::class, array(
-                'label' => 'Precio',
+                'label' => 'Precio €',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'required' => 'required',
+                'currency'=>'',
                 'attr' => array(
                     'class' => 'form-control'
                 )
             ))
             ->add('descuento', MoneyType::class, array(
-                'label' => 'Descuento',
+                'label' => 'Descuento €',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'required' => 'required',
+                'currency'=>'',
                 'attr' => array(
                     'class' => 'form-control'
                 )
             ))
             ->add('umbral', TextType::class, array(
-                'label' => 'Compras necesarias para activar oferta',
+                'label' => 'Umbral',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'required' => 'required',
                 'attr' => array(
@@ -81,7 +83,7 @@ class OfertaType extends AbstractType
                 )
             ))
             ->add('fechaPublicacion', DateType::class, array(
-                'label' => 'Fecha que desea publicar la oferta',
+                'label' => 'Fecha Publicación',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
                 'required' => 'required',
                 'attr' => array(
@@ -105,12 +107,12 @@ class OfertaType extends AbstractType
                         "class" => "form-submit btn btn-success"
                     )
                 ))
-                ->add('condiciones', CheckboxType::class, array(
+                ->add('condicionesPublicacion', CheckboxType::class, array(
                     'label' => 'Acepto condiciones',
                     'label_attr' => array('class' => 'col-sm-2 control-label'),
                     'required' => 'required',
                     'attr' => array(
-                        'class' => 'form-control'
+                        'class' => ''
                     ),
                     'mapped' => false,
                     'constraints' => new IsTrue(array(

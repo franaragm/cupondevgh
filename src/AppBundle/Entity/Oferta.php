@@ -132,7 +132,6 @@ class Oferta
      *
      * @ORM\Column(name="umbral", type="integer")
      *
-     * @Assert\Type(type="integer")
      * @Assert\Range(min = 0)
      */
     private $umbral;

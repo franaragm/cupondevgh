@@ -18,7 +18,7 @@ services:
 
     app.manager.oferta_manager:
         class: AppBundle\Manager\OfertaManager
-        arguments: ['@doctrine.orm.entity_manager']
+        arguments: ['@doctrine.orm.entity_manager', '@service_container']
 
     twig.extension.text:
         class: Twig_Extensions_Extension_Text

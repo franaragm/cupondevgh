@@ -4,13 +4,10 @@
 
 {% block crearoferta 'active' %}
 {% block title %}
-    {{ accion == 'crear' ? 'Añadir una nueva oferta' : 'Modificar la oferta ' ~ oferta.nombre
+    {{ accion == 'crear' ? 'Añadir una nueva Oferta' : 'Modificar la Oferta - ' ~ oferta.nombre
 }}{% endblock %}
 
 {% block maincontent %}
-    <div class="col-lg-12">
-        <h1 class="page-header">Crear una nueva oferta</h1>
-    </div>
 
     <div class="col-md-12 info-dashboard-tienda">
 
@@ -120,17 +117,56 @@
 
                 </fieldset>
 
+                <fieldset>
+                    <legend>Datos de la duración de la oferta</legend>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.fechaPublicacion) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.fechaPublicacion) }}
+                            <span id="helpBlock" class="help-block">
+                                Fecha que desea publicar la oferta.
+                                Tenga en cuenta que antes de ser publicada se revisará la oferta.
+                            </span>
+                            <p class="text-danger">{{ form_errors(formulario.fechaPublicacion) }}</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_label(formulario.fechaExpiracion) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(formulario.fechaExpiracion) }}
+                            <span id="helpBlock" class="help-block">
+                                Fecha de expiración de la oferta
+                            </span>
+                            <p class="text-danger">{{ form_errors(formulario.fechaExpiracion) }}</p>
+                        </div>
+                    </div>
+
+                </fieldset>
+
                 {% if accion == 'crear' %}
+                    <fieldset>
+                        <legend>Condiciones de publicación</legend>
+                        <div class="form-group">
+                            {{ form_label(formulario.condicionesPublicacion) }}
+                            <div class="col-sm-10">
+                                {{ form_widget(formulario.condicionesPublicacion) }}
+                                <span id="helpBlock" class="help-block">
+                                Declaro que toda la información de esta oferta es correcta,
+                                que soy consciente de la obligación de cumplir las condiciones
+                                prometidas y que dispongo de los medios necesarios para hacerlo.
+                            </span>
+                                <p class="text-danger">{{ form_errors(formulario.condicionesPublicacion) }}</p>
+                            </div>
+                        </div>
+                    </fieldset>
+
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             {{ form_widget(formulario.crear) }}
                         </div>
                     </div>
-                    <span>
-                        Declaro que toda la información de esta oferta es correcta,
-                        que soy consciente de la obligación de cumplir las condiciones
-                        prometidas y que dispongo de los medios necesarios para hacerlo.
-                    </span>
                 {% endif %}
 
 

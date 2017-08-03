@@ -106,6 +106,7 @@ class ExtranetController extends Controller
 
         if ($formulario->isValid()) {
             $this->get('app.manager.oferta_manager')->guardar($oferta);
+            $this->addFlash('alert-success', 'Oferta creada correctamente a la espera de ser supervisada');
             return $this->redirectToRoute('extranet_portada');
         }
 

@@ -6,6 +6,7 @@ use AppBundle\Entity\Oferta;
 use AppBundle\Entity\Usuario;
 use AppBundle\Entity\Venta;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Esta clase encapsula algunas operaciones que se realizan habitualmente sobre
@@ -13,12 +14,14 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class OfertaManager
 {
-    /** @var ObjectManager */
-    private $em;
 
-    public function __construct(ObjectManager $entityManager)
+    private $em;
+    private $container;
+
+    public function __construct(ObjectManager $entityManager, ContainerInterface $container)
     {
         $this->em = $entityManager;
+        $this->container = $container;
     }
 
     /**
