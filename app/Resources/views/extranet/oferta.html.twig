@@ -2,10 +2,17 @@
 {# se incluye la plantilla que renderiza los errores de formulario con un aspecto personalizado #}
 {% form_theme formulario 'form/form_errors.html.twig' %}
 
-{% block crearoferta 'active' %}
+{% if accion == 'crear' %}
+    {% set linkclass = 'active' %}
+{% else %}
+    {% set linkclass = '' %}
+{% endif %}
+
+{% block crearoferta linkclass %}
+
 {% block title %}
-    {{ accion == 'crear' ? 'Añadir una nueva Oferta' : 'Modificar la Oferta - ' ~ oferta.nombre
-}}{% endblock %}
+    {{ accion == 'crear' ? 'Añadir una nueva Oferta' : 'Modificar la Oferta - ' ~ oferta.nombre }}
+{% endblock %}
 
 {% block maincontent %}
 
@@ -61,7 +68,7 @@
                         {{ form_label(formulario.fotoTemp) }}
                         <div class="col-sm-10">
                             {% if accion == 'editar' %}
-                                <img src="{{ asset(oferta.ofertaFoto, 'ofertas') }}" />
+                                <img class="img-oferta-preview" src="{{ asset(oferta.ofertaFoto, 'ofertas') }}" />
                                 <p class="ayuda">(No se muestra a tamaño real)</p>
 
                                 {{ form_label(formulario.fotoTemp, 'Modificar foto') }}
@@ -165,6 +172,12 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             {{ form_widget(formulario.crear) }}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            {{ form_widget(formulario.guardar) }}
                         </div>
                     </div>
                 {% endif %}

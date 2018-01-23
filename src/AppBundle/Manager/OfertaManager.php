@@ -52,4 +52,39 @@ class OfertaManager
         $this->em->persist($oferta);
         $this->em->flush();
     }
+
+    /**
+     * @param Oferta $oferta
+     * @param string $fotoOriginal nombre de imagen actual en caso de existir
+     */
+    public function editar(Oferta $oferta, $fotoOriginal = null)
+    {
+
+        if (null == $oferta->getFotoTemp()) {
+            // La foto original no se modifica, recuperar su ruta
+            $oferta->setOfertaFoto($fotoOriginal);
+            $this->guardar($oferta);
+        } else {
+            $this->guardar($oferta);
+
+            // Borrar la foto anterior
+            $directorioDestino = $this->container->getParameter('app.directorio.imagenes');
+            unlink($directorioDestino.$fotoOriginal);
+        }
+    }
+
+    /**
+     * @param Oferta $oferta
+     */
+    public function borrar(Oferta $oferta)
+    {
+        // Borrar la foto de la oferta
+        $fotoOferta = $oferta->getOfertaFoto();
+        $directorioDestino = $this->container->getParameter('app.directorio.imagenes');
+        unlink($directorioDestino.$fotoOferta);
+
+        $this->em->remove($oferta);
+        $this->em->flush();
+
+    }
 }

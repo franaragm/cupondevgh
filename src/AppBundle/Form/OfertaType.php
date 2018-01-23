@@ -48,14 +48,33 @@ class OfertaType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control'
                 )
-            ))
-            ->add('fotoTemp', FileType::class, array(
-                'label' => 'Imagen',
-                'label_attr' => array('class' => 'col-sm-2 control-label'),
-                'attr' => array(
-                    'class' => ''
-                )
-            ))
+            ));
+
+        if ('crear_oferta' === $options['accion']) {
+            $builder
+                ->add('fotoTemp', FileType::class, array(
+                    'label' => 'Imagen',
+                    'required' => true,
+                    'label_attr' => array('class' => 'col-sm-2 control-label'),
+                    'attr' => array(
+                        'class' => ''
+                    )
+                ));
+
+        } elseif ('modificar_oferta' === $options['accion']) {
+            $builder
+                ->add('fotoTemp', FileType::class, array(
+                    'label' => 'Imagen',
+                    'required' => false,
+                    'label_attr' => array('class' => 'col-sm-2 control-label'),
+                    'attr' => array(
+                        'class' => ''
+                    )
+                ));
+
+        }
+
+        $builder
             ->add('precio', MoneyType::class, array(
                 'label' => 'Precio €',
                 'label_attr' => array('class' => 'col-sm-2 control-label'),
@@ -98,6 +117,7 @@ class OfertaType extends AbstractType
                     'class' => ''
                 )
             ));
+
 
         if ('crear_oferta' === $options['accion']) {
             $builder

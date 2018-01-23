@@ -61,7 +61,7 @@ class ExtranetController extends Controller
      *
      * @param int $id id de la Oferta
      *
-     * @return Response
+     * @return RedirectResponse|Response
      */
     public function ofertaVentasAction($id)
     {
@@ -92,7 +92,7 @@ class ExtranetController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function ofertaNuevaAction(Request $request)
     {
@@ -118,10 +118,104 @@ class ExtranetController extends Controller
 
     /**
      * @Route("/oferta/editar/{id}", name="extranet_oferta_editar")
+     *
+     * Muestra el formulario para editar una oferta y se encarga del
+     * procesamiento de la información recibida y la modificación de los
+     * datos de las entidades de tipo Oferta.
+     *
+     * @param Request $request
+     * @param int $id id de la Oferta
+     *
+     * @return RedirectResponse|Response
+     *
      */
-    public function ofertaEditarAction()
+    public function ofertaEditarAction(Request $request, $id)
     {
-        return $this->render(':extranet:dashboard.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $oferta = $em->getRepository('AppBundle:Oferta')->findOneById($id);
+
+        if (!$oferta) {
+            $this->addFlash('alert-danger', 'La oferta que se quiere editar no existe');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        $authChecker = $this->get('security.authorization_checker');
+
+        if (!$authChecker->isGranted('view', $oferta)) {
+            $this->addFlash('alert-danger', 'No puede editar la información de una oferta de otra tienda!');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        if ($oferta->getFechaPublicacion() < new \DateTime('now')) {
+            $this->addFlash('alert-danger', 'No puede editar la información de una oferta después de su fecha de publicación!');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        if ($oferta->getRevisada()) {
+            $oferta->setRevisada(false);
+        }
+
+        $formulario = $this->createForm('AppBundle\Form\OfertaType', $oferta, array(
+            'accion' => 'modificar_oferta'
+        ));
+
+        // Antes de procesar form con nueva foto recoger nombre de foto actual
+        $fotoOriginal = $formulario->getData()->getOfertaFoto();
+
+        $formulario->handleRequest($request);
+
+        if ($formulario->isValid()) {
+
+            $this->get('app.manager.oferta_manager')->editar($oferta, $fotoOriginal);
+
+            $this->addFlash('alert-success', 'Oferta modificada correctamente');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        return $this->render('extranet/oferta.html.twig', array(
+            'accion' => 'editar',
+            'oferta' => $oferta,
+            'formulario' => $formulario->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/oferta/borrar/{id}", name="extranet_oferta_borrar")
+     *
+     * Borra una oferta y su imagen asociada
+     *
+     * @param Request $request
+     * @param int $id id de la Oferta
+     *
+     * @return RedirectResponse
+     *
+     */
+    public function ofertaBorrarAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $oferta = $em->getRepository('AppBundle:Oferta')->findOneById($id);
+
+        if (!$oferta) {
+            $this->addFlash('alert-danger', 'La oferta que se quiere borrar no existe');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        $authChecker = $this->get('security.authorization_checker');
+
+        if (!$authChecker->isGranted('view', $oferta)) {
+            $this->addFlash('alert-danger', 'No puede borrar una oferta de otra tienda!');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        if ($oferta->getFechaPublicacion() < new \DateTime('now')) {
+            $this->addFlash('alert-danger', 'No puede borrar una oferta después de su fecha de publicación!');
+            return $this->redirectToRoute('extranet_portada');
+        }
+
+        $this->get('app.manager.oferta_manager')->borrar($oferta);
+
+        $this->addFlash('alert-success', 'Oferta borrada correctamente');
+        return $this->redirectToRoute('extranet_portada');
     }
 
     /**

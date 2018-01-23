@@ -106,3 +106,8 @@ a:hover {
 .info-dashboard-tienda .fa-eye-slash {
 	color: #f0ad4e;
 }
+
+/* ------------ OFERTA PAGE ------------- */
+.img-oferta-preview {
+	max-width: 80%;
+}

@@ -62,9 +62,15 @@
                                         </a>
                                     {% endif %}
 
-                                    {% if not oferta.revisada %}
+                                    {% set ofertaPublicada = oferta.fechaPublicacion|date('YmdHis') < 'now'|date('YmdHis') %}
+
+                                    {% if not oferta.revisada or not ofertaPublicada %}
                                         <a class="btn btn-default btn-xs" href="{{ path('extranet_oferta_editar', { id: oferta.id }) }}">
                                             <i class="fa fa-edit"></i> Modificar
+                                        </a>
+                                        <a class="btn btn-danger btn-xs" href="{{ path('extranet_oferta_borrar', { id: oferta.id }) }}"
+                                           onclick="return confirm('Estas a punto de eliminar la oferta: {{ oferta.nombre }}. Desea continuar?')">
+                                            <i class="fa fa-trash-o"></i> Eliminar
                                         </a>
                                     {% endif %}
 
