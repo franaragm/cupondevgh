@@ -146,9 +146,11 @@ class ExtranetController extends Controller
             return $this->redirectToRoute('extranet_portada');
         }
 
-        if ($oferta->getFechaPublicacion() < new \DateTime('now')) {
-            $this->addFlash('alert-danger', 'No puede editar la información de una oferta después de su fecha de publicación!');
-            return $this->redirectToRoute('extranet_portada');
+        if($oferta->getRevisada()) {
+            if ($oferta->getFechaPublicacion() < new \DateTime('now') && new \DateTime('now') < $oferta->getFechaExpiracion()) {
+                $this->addFlash('alert-danger', 'Solo puede editar la información de una oferta antes de su fecha de publicación o cuando caduque. También se permite modificar si no ha sido revisada la oferta');
+                return $this->redirectToRoute('extranet_portada');
+            }
         }
 
         if ($oferta->getRevisada()) {
@@ -207,9 +209,11 @@ class ExtranetController extends Controller
             return $this->redirectToRoute('extranet_portada');
         }
 
-        if ($oferta->getFechaPublicacion() < new \DateTime('now')) {
-            $this->addFlash('alert-danger', 'No puede borrar una oferta después de su fecha de publicación!');
-            return $this->redirectToRoute('extranet_portada');
+        if($oferta->getRevisada()) {
+            if ($oferta->getFechaPublicacion() < new \DateTime('now') && new \DateTime('now') < $oferta->getFechaExpiracion()) {
+                $this->addFlash('alert-danger', 'Solo puede borrar una oferta antes de su fecha de publicación o cuando caduque. También se permite borrar si no ha sido revisada la oferta');
+                return $this->redirectToRoute('extranet_portada');
+            }
         }
 
         $this->get('app.manager.oferta_manager')->borrar($oferta);

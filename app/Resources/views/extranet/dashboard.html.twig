@@ -28,7 +28,8 @@
                         <thead>
                         <tr>
                             <th>Revisada</th>
-                            <th>Se publica</th>
+                            <th>Estado</th>
+                            <th>Empieza</th>
                             <th>Finaliza</th>
                             <th>Nombre</th>
                             <th>Ventas</th>
@@ -37,6 +38,9 @@
                         </thead>
                         <tbody>
                         {% for oferta in ofertas_tienda %}
+
+                            {% set ofertaPublicada = oferta.fechaPublicacion|date('YmdHis') < 'now'|date('YmdHis') %}
+                            {% set ofertaCaducada = oferta.fechaExpiracion|date('YmdHis') < 'now'|date('YmdHis') %}
                             <tr>
                                 <td>
                                     {% if oferta.revisada %}
@@ -46,12 +50,20 @@
                                     {% endif %}
                                 </td>
 
-                                {% if oferta.revisada %}
-                                    <td>{{ oferta.fechaPublicacion|localizeddate('medium', 'short') }}</td>
-                                    <td>{{ oferta.fechaExpiracion|localizeddate('medium', 'short') }}</td>
-                                {% else %}
-                                    <td colspan="2">Pendiente de revisión</td>
-                                {% endif %}
+                                <td>
+                                    {% if ofertaPublicada and not ofertaCaducada and oferta.revisada %}
+                                        Publicada
+                                    {% elseif ofertaCaducada %}
+                                        Caducada
+                                    {% elseif not oferta.revisada  %}
+                                        No revisada
+                                    {% else %}
+                                        Sin publicar
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ oferta.fechaPublicacion|localizeddate('medium', 'short') }}</td>
+                                <td>{{ oferta.fechaExpiracion|localizeddate('medium', 'short') }}</td>
 
                                 <td>{{ oferta.nombre }}</td>
                                 <td>{{ oferta.compras }}</td>
@@ -62,9 +74,7 @@
                                         </a>
                                     {% endif %}
 
-                                    {% set ofertaPublicada = oferta.fechaPublicacion|date('YmdHis') < 'now'|date('YmdHis') %}
-
-                                    {% if not oferta.revisada or not ofertaPublicada %}
+                                    {% if not oferta.revisada or not ofertaPublicada or ofertaCaducada %}
                                         <a class="btn btn-default btn-xs" href="{{ path('extranet_oferta_editar', { id: oferta.id }) }}">
                                             <i class="fa fa-edit"></i> Modificar
                                         </a>
@@ -79,6 +89,11 @@
                         {% endfor %}
                         </tbody>
                     </table>
+                    <p><small>Solo se podrán editar o eliminar las ofertas que no hayan sido revisadas o que no estén publicadas o que hayan caducado.</small></p>
+                    <p><small>Las ofertas que no estén revisadas por un administrador no se harán publicas aún habiendo sobrepasado la fecha de publicación.</small></p>
+                    <p><i class="fa fa-eye-slash"></i> <small> Oferta sin revisar</small></p>
+                    <p><i class="fa fa-eye"></i> <small> Oferta revisada</small></p>
+
                 {% else %}
                     <p>No tienes ninguna oferta creada</p>
                 {% endif %}
