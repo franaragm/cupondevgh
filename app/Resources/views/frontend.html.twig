@@ -86,8 +86,10 @@
             {% block maincontent %}{% endblock %}
 
             <!-- Sidebar -->
-            <div class="col-md-3">
-                {% block sidebarcontent %}{% endblock %}
+            <div class="col-md-3 sidebar-flotante">
+                <div class="sidebar__inner">
+                    {% block sidebarcontent %}{% endblock %}
+                </div>
             </div>
         </div>
         <!-- /.row -->

@@ -1,3 +1,20 @@
+
+
+
+$(function() {
+
+    /**
+     * Plugin JQuery para que sidebar sea flotante
+     */
+    $('.sidebar-flotante').stickySidebar({
+        topSpacing: 60,
+        bottomSpacing: 60
+    });
+
+});
+
+
+
 /**
  * Crea un contador de tiempo que se actualiza cada segundo y que muestra
  * cuánto falta para que expire la oferta.
