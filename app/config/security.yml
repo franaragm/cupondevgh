@@ -11,10 +11,20 @@ security:
         tiendas:
             entity: { class: AppBundle\Entity\Tienda, property: login }
 
-        in_memory:
-            memory: ~
+        # Usuarios del backend
+        administradores:
+            memory:
+                users:
+                    # usuario = admin, contraseña = 1234
+                    admin: { password: '$2y$13$w700yeSs8FxMLrEXaCATgehosZf9vx09RbwKddswl9LN/22dKL2qO', roles: ROLE_ADMIN }
 
     firewalls:
+
+        # Firewall de la parte de administración o backend
+        backend:
+            pattern:        ^/admin
+            provider:       administradores
+            http_basic:     ~
 
         # Firewall utilizado en la parte de gestion para tiendas o extranet
         extranet:
@@ -54,21 +64,19 @@ security:
         - { path: ^/(es|en)/usuario/*, roles: ROLE_USUARIO }
         - { path: ^/extranet/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/extranet/*, roles: ROLE_TIENDA }
+        - { path: ^/admin/*, roles: ROLE_ADMIN }
 
     encoders:
 
         # el coste del algoritmo se ha reducido a 4 para que la carga de los datos
         # de prueba no sea demasiado lenta (se generan cientos de usuarios). En
         # una aplicación real, es mejor no cambiar el valor por defecto (que es 12)
-        AppBundle\Entity\Usuario:
-            algorithm: bcrypt
-            cost: 4
-
-        AppBundle\Entity\Tienda:
-            algorithm: bcrypt
-            cost: 4
+        AppBundle\Entity\Usuario: { algorithm: bcrypt, cost: 8 }
+        AppBundle\Entity\Tienda: { algorithm: bcrypt, cost: 8 }
+        Symfony\Component\Security\Core\User\User: { algorithm: bcrypt, cost: 8 }
 
     role_hierarchy:
+        # Indica que cualquier usuario con role ROLE_ADMIN también dispone de los roles ROLE_USUARIO y ROLE_TIENDA:
         ROLE_ADMIN:
             - ROLE_USUARIO
             - ROLE_TIENDA
