@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -11,21 +12,39 @@ use Doctrine\ORM\Mapping as ORM;
 class Venta
 {
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type(type="\DateTime")
      */
     protected $fecha;
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Oferta")
      */
     protected $oferta;
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario")
      */
     protected $usuario;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set fecha

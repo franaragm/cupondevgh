@@ -86,7 +86,7 @@ class Usuario implements UserInterface
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_alta", type="datetime")
-     * @Assert\DateTime()
+     * @Assert\Type(type="\DateTime")
      */
     private $fechaAlta;
 
@@ -94,7 +94,7 @@ class Usuario implements UserInterface
      * @var \DateTime
      *
      * @ORM\Column(name="fecha_nacimiento", type="datetime")
-     * @Assert\DateTime()
+     * @Assert\Type(type="\DateTime")
      */
     private $fechaNacimiento;
 
