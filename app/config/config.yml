@@ -90,8 +90,13 @@ swiftmailer:
 
 easy_admin:
     entities:
-        - AppBundle\Entity\Ciudad
-        - AppBundle\Entity\Oferta
-        - AppBundle\Entity\Tienda
-        - AppBundle\Entity\Usuario
-        - AppBundle\Entity\Venta
+        Ciudad:
+            class: AppBundle\Entity\Ciudad
+        Tienda:
+            class: AppBundle\Entity\Tienda
+        Usuario:
+            class: AppBundle\Entity\Usuario
+        Venta:
+            class: AppBundle\Entity\Venta
+        Oferta:
+            class: AppBundle\Entity\Oferta
