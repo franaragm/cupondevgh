@@ -32,6 +32,49 @@ class Oferta
     private $nombre;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="revisada", type="boolean")
+     *
+     * @Assert\Type(type="bool")
+     */
+    private $revisada;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_publicacion", type="datetime", nullable=true)
+     *
+     * @Assert\Type(type="\DateTime")
+     */
+    private $fechaPublicacion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_expiracion", type="datetime", nullable=true)
+     *
+     * @Assert\Type(type="\DateTime")
+     */
+    private $fechaExpiracion;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha_actualizacion", type="datetime", nullable=true)
+     *
+     * @Assert\Type(type="\DateTime")
+     */
+    private $fechaActualizacion;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="compras", type="integer")
+     */
+    private $compras;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=255)
@@ -94,40 +137,6 @@ class Oferta
     private $descuento;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_publicacion", type="datetime", nullable=true)
-     *
-     * @Assert\DateTime
-     */
-    private $fechaPublicacion;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_expiracion", type="datetime", nullable=true)
-     *
-     * @Assert\DateTime
-     */
-    private $fechaExpiracion;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_actualizacion", type="datetime", nullable=true)
-     *
-     * @Assert\DateTime
-     */
-    private $fechaActualizacion;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="compras", type="integer")
-     */
-    private $compras;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="umbral", type="integer")
@@ -135,15 +144,6 @@ class Oferta
      * @Assert\Range(min = 0)
      */
     private $umbral;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="revisada", type="boolean")
-     *
-     * @Assert\Type(type="bool")
-     */
-    private $revisada;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Ciudad")
