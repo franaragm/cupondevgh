@@ -67,6 +67,28 @@ class OfertaRepository extends EntityRepository
     }
 
     /**
+     * Encuentra la oferta del día de mañana en la ciudad indicada.
+     *
+     * @param string $ciudad El slug de la ciudad
+     *
+     * @return Oferta|null
+     */
+    public function findOfertaDelDiaSiguiente($ciudad)
+    {
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+            SELECT o, c, t
+            FROM AppBundle:Oferta o JOIN o.ciudad c JOIN o.tienda t
+            WHERE o.revisada = true AND o.fechaPublicacion < :fecha AND c.slug = :ciudad
+            ORDER BY o.fechaPublicacion DESC
+        ');
+        $consulta->setParameter('fecha', new \DateTime('tomorrow'));
+        $consulta->setParameter('ciudad', $ciudad);
+        $consulta->setMaxResults(1);
+        return $consulta->getOneOrNullResult();
+    }
+
+    /**
      * Encuentra las cinco ofertas más cercanas a la ciudad indicada
      *
      * @param string $ciudad El slug de la ciudad
